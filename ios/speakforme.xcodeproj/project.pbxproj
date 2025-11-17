@@ -9,9 +9,20 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-speakforme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-speakforme.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		168D412FDA6C48D38B24F699 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E7EDC7316BA43FD985DEEAB /* Lato-LightItalic.ttf */; };
 		21BA95FFBA1CF618ED033D63 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		2B96B532B396482793E8C5DE /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A96B3CE3C3FC4B56850C5DC2 /* Lato-Italic.ttf */; };
+		2F29FF15F1A5482DA6A13E66 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71F7C443FC4D4B34B580872B /* Lato-Thin.ttf */; };
+		641CCEE4997F4BEC95D781B3 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBF750E4688F4F20B1CE69E6 /* Lato-Light.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C40D540E9AD2441DA34C0EA3 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E107C1030BC9455B88981D4D /* Lato-BoldItalic.ttf */; };
+		C45E420E9C53430FB293F12F /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E2556AB8410467992967889 /* Lato-ThinItalic.ttf */; };
+		D103E6CFAB4B4A4DBDC28019 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A549AFA554AF5B8BCDE76 /* OFL.txt */; };
+		E380AE4AC0944F4DA1F4663B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61143AA9CAF54D849C718922 /* Lato-Bold.ttf */; };
+		EBF4B29FBC4241F99D4B9F69 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82A7F1A5804347E78AC299B5 /* Lato-Black.ttf */; };
+		ED8564C4211D40759B76F827 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207418FCB1614EEBA809FD0B /* Lato-Regular.ttf */; };
+		FC706F71A8154274AF0170CD /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 970D4B64DA12410E9BBC4F9D /* Lato-BlackItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,11 +30,22 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = speakforme/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = speakforme/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = speakforme/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1F3A549AFA554AF5B8BCDE76 /* OFL.txt */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OFL.txt; path = ../src/assets/fonts/OFL.txt; sourceTree = "<group>"; };
+		207418FCB1614EEBA809FD0B /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		2E2556AB8410467992967889 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-ThinItalic.ttf"; path = "../src/assets/fonts/Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
+		2E7EDC7316BA43FD985DEEAB /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-LightItalic.ttf"; path = "../src/assets/fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-speakforme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speakforme.debug.xcconfig"; path = "Target Support Files/Pods-speakforme/Pods-speakforme.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-speakforme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-speakforme.release.xcconfig"; path = "Target Support Files/Pods-speakforme/Pods-speakforme.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-speakforme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-speakforme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61143AA9CAF54D849C718922 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		71F7C443FC4D4B34B580872B /* Lato-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Thin.ttf"; path = "../src/assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = speakforme/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = speakforme/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		82A7F1A5804347E78AC299B5 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../src/assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
+		970D4B64DA12410E9BBC4F9D /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BlackItalic.ttf"; path = "../src/assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		A96B3CE3C3FC4B56850C5DC2 /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
+		E107C1030BC9455B88981D4D /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../src/assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		EBF750E4688F4F20B1CE69E6 /* Lato-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Light.ttf"; path = "../src/assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -75,6 +97,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				C819E00FF56749328EF07F43 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -96,6 +119,24 @@
 				5709B34CF0A7D63546082F79 /* Pods-speakforme.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C819E00FF56749328EF07F43 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				82A7F1A5804347E78AC299B5 /* Lato-Black.ttf */,
+				970D4B64DA12410E9BBC4F9D /* Lato-BlackItalic.ttf */,
+				61143AA9CAF54D849C718922 /* Lato-Bold.ttf */,
+				E107C1030BC9455B88981D4D /* Lato-BoldItalic.ttf */,
+				A96B3CE3C3FC4B56850C5DC2 /* Lato-Italic.ttf */,
+				EBF750E4688F4F20B1CE69E6 /* Lato-Light.ttf */,
+				2E7EDC7316BA43FD985DEEAB /* Lato-LightItalic.ttf */,
+				207418FCB1614EEBA809FD0B /* Lato-Regular.ttf */,
+				71F7C443FC4D4B34B580872B /* Lato-Thin.ttf */,
+				2E2556AB8410467992967889 /* Lato-ThinItalic.ttf */,
+				1F3A549AFA554AF5B8BCDE76 /* OFL.txt */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +202,17 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				21BA95FFBA1CF618ED033D63 /* PrivacyInfo.xcprivacy in Resources */,
+				EBF4B29FBC4241F99D4B9F69 /* Lato-Black.ttf in Resources */,
+				FC706F71A8154274AF0170CD /* Lato-BlackItalic.ttf in Resources */,
+				E380AE4AC0944F4DA1F4663B /* Lato-Bold.ttf in Resources */,
+				C40D540E9AD2441DA34C0EA3 /* Lato-BoldItalic.ttf in Resources */,
+				2B96B532B396482793E8C5DE /* Lato-Italic.ttf in Resources */,
+				641CCEE4997F4BEC95D781B3 /* Lato-Light.ttf in Resources */,
+				168D412FDA6C48D38B24F699 /* Lato-LightItalic.ttf in Resources */,
+				ED8564C4211D40759B76F827 /* Lato-Regular.ttf in Resources */,
+				2F29FF15F1A5482DA6A13E66 /* Lato-Thin.ttf in Resources */,
+				C45E420E9C53430FB293F12F /* Lato-ThinItalic.ttf in Resources */,
+				D103E6CFAB4B4A4DBDC28019 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +314,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = speakforme/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Speak For Me";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -289,6 +342,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = speakforme/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Speak For Me";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
