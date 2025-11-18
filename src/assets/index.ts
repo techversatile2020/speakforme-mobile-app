@@ -27,5 +27,18 @@ export const Icons = {
   eyeOff: require('./icons/eye-off.png'),
   eyeShow: require('./icons/eye-show.png'),
 
-  arrowDown:require('./icons/arrowDown.png')
+  arrowDown: require('./icons/arrowDown.png'),
+  backArrow: require('./icons/backArrow.png'),
+  settings: require('./icons/settings.png'),
+  contact: require('./icons/contact.png'),
+  phone: require('./icons/phone.png'),
+  send: require('./icons/send.png'),
+  profile: require('./icons/profile.png'),
+  rightArrow: require('./icons/rightArrow.png'),
+
+  password: require('./icons/password.png'),
+  voice: require('./icons/voice.png'),
+  delete: require('./icons/delete.png'),
+  logout: require('./icons/logout.png'),
+  close: require('./icons/close.png'),
 };

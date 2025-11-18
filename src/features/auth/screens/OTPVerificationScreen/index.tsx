@@ -1,0 +1,82 @@
+import React, { useEffect, useState } from 'react';
+import { useTheme } from '../../../../theme';
+import { createStyles } from './styles';
+import {
+  Header,
+  Image,
+  MainContainer,
+  PrimaryButton,
+  Text,
+} from '../../../../components';
+import { Images } from '../../../../assets';
+import { OtpInput } from 'react-native-otp-entry';
+import { navigationServices, SD } from '../../../../utils';
+import { TouchableOpacity, View } from 'react-native';
+import { AuthRoutes } from '../../../../constants';
+
+export const OTPVerificationScreen = ({ route }: any) => {
+  const { AppTheme } = useTheme();
+  const styles = createStyles(AppTheme);
+  const { from } = route?.params || {};
+  const [timer, setTimer] = useState(60);
+
+  useEffect(() => {
+    if (timer === 0) return;
+    const interval = setInterval(() => {
+      setTimer(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  const onResendPress = () => {
+    setTimer(60);
+    console.log('Resend code triggered');
+  };
+
+  const handleConfirm = () => {
+    if (from == 'signup')
+      return navigationServices.reset_0(AuthRoutes['LoginScreen']);
+    navigationServices.navigate(AuthRoutes['ChangePasswordScreen']);
+  };
+  return (
+    <MainContainer>
+      {from !== 'signup' && <Header />}
+      <View style={{ flex: 1 }}>
+        <Image source={Images.logo} size={189} align="center" />
+        <Text
+          color={AppTheme.textSecondary}
+          leftSpacing={5}
+          regular
+          size={14}
+          bottomSpacing={12}
+          topSpacing={20}
+        >
+          Please enter 6-digit code we have sent you on your email
+        </Text>
+        <OtpInput
+          numberOfDigits={6}
+          onTextChange={text => console.log(text)}
+          placeholder="******"
+          type="numeric"
+          focusColor={AppTheme.textPrimary}
+          theme={{
+            containerStyle: {
+              marginTop: SD.hp(10),
+            },
+          }}
+        />
+        <TouchableOpacity
+          style={styles.resendButton}
+          onPress={onResendPress}
+          disabled={timer !== 0}
+        >
+          <Text centered color={AppTheme.primary}>
+            {timer === 0 ? 'Resend code?' : `Resend code in ${timer}s`}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <PrimaryButton title={'Confirm'} onPress={handleConfirm} />
+    </MainContainer>
+  );
+};

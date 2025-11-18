@@ -1,2 +1,5 @@
 export * from './LoginScreen'
 export * from './SignupScreen'
+export * from './ForgotPasswordScreen'
+export * from './OTPVerificationScreen'
+export * from './ChangePasswordScreen'

@@ -16,14 +16,19 @@ import { Formik } from 'formik';
 import { validationSchema } from './validation.schema';
 import { TextInput, View } from 'react-native';
 import { CardContainer } from '../../../../components/card-container';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../../../redux/authSlices';
+import { store } from '../../../../redux';
 
 export const LoginScreen = () => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
-
+  const dispatch = useDispatch();
+  const {token} = useSelector((state:any)=>state.auth)
   const passwordRef = useRef<TextInput>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  console.log('TOKEN => ',token);
+  
   return (
     <MainContainer>
       <KeyboardAwareScrollView
@@ -35,7 +40,11 @@ export const LoginScreen = () => {
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
-          onSubmit={values => {}}
+          onSubmit={values => {
+            console.log('LOGIN ONSUBMITE',values);
+            
+            store.dispatch(setToken('abc'));
+          }}
         >
           {({
             handleChange,
@@ -119,7 +128,11 @@ export const LoginScreen = () => {
                   <Text size={11} regular>
                     Don’t Have an Account?{' '}
                   </Text>
-                  <CardContainer onPress={()=>navigationServices.navigate(AuthRoutes['SignupScreen'])}>
+                  <CardContainer
+                    onPress={() =>
+                      navigationServices.navigate(AuthRoutes['SignupScreen'])
+                    }
+                  >
                     <Text size={11} regular color={AppTheme.primary}>
                       Register Now
                     </Text>

@@ -1,6 +1,6 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {createMMKV} from 'react-native-mmkv';
-import {persistReducer, persistStore, Storage} from 'redux-persist';
+import { configureStore } from '@reduxjs/toolkit';
+import { createMMKV } from 'react-native-mmkv';
+import { persistReducer, persistStore, Storage } from 'redux-persist';
 import { rootReducer } from './reducers';
 
 export const storage = createMMKV();
@@ -22,7 +22,7 @@ export const reduxStorage: Storage = {
 const persistConfig = {
   key: 'root',
   storage: reduxStorage,
-  whitelist: ['onboarding'],
+  whitelist: ['onboarding', 'auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

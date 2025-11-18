@@ -1,9 +1,9 @@
 import { SettingRoutes } from '../../constants';
-import { UnderDevelopmentScreen } from '../../features';
+import { SettingScreen } from '../../features';
 
 export const SettingsStack: any[] = [
   {
     name: SettingRoutes.SettingScreen,
-    component: UnderDevelopmentScreen,
+    component: SettingScreen,
   },
 ];

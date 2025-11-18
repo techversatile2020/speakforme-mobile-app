@@ -2,6 +2,7 @@ import React, { FC, Ref, useState } from 'react';
 import {
   Image,
   ImageProps,
+  ImageStyle,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -56,6 +57,7 @@ export type CustomInputProps = TextInputProps & {
   onSearchQueryChange?: (text: string) => void;
   searchQuery?: string;
   onSearchPress?: (text: string) => void;
+  iconImageStyles?: ImageStyle;
 };
 
 export const CustomInput: FC<CustomInputProps> = ({
@@ -79,6 +81,7 @@ export const CustomInput: FC<CustomInputProps> = ({
   isSecondary,
   onSearchQueryChange,
   searchQuery,
+  iconImageStyles,
   ...rest
 }) => {
   const { AppTheme } = useTheme();
@@ -107,8 +110,8 @@ export const CustomInput: FC<CustomInputProps> = ({
           selectionColor={AppTheme.primary}
           style={[
             styles.textInput(AppTheme),
-            !eye && {
-              width: '85%',
+            !eye || !isIcon && {
+              width: '100%',
             },
             customStyle,
           ]}
@@ -133,11 +136,14 @@ export const CustomInput: FC<CustomInputProps> = ({
           >
             <Image
               source={iconImage}
-              style={{
-                width: SD.wp(15),
-                height: SD.hp(15),
-                // borderWidth:1
-              }}
+              style={[
+                {
+                  width: SD.wp(15),
+                  height: SD.hp(15),
+                  // borderWidth:1
+                },
+                iconImageStyles,
+              ]}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -148,7 +154,7 @@ export const CustomInput: FC<CustomInputProps> = ({
             style={[
               styles.eyeStyle(AppTheme),
               {
-                alignItems: 'flex-end',
+                // alignItems: 'flex-end',
               },
             ]}
             onPress={onEyePress}
@@ -190,27 +196,27 @@ const styles = StyleSheet.create<any>({
   textContainer: (AppTheme: any, isSecondary: boolean) => ({
     borderRadius: SD.hp(12),
     height: SD.hp(60),
-    width: '98%',
+    width: '100%',
     alignSelf: 'center',
     flexDirection: 'row',
     marginVertical: SD.hp(8),
     backgroundColor: AppTheme.inputBackground,
     alignItems: 'center',
-    paddingLeft: SD.wp(20),
+    paddingLeft: SD.wp(10),
     paddingRight: SD.wp(10),
+    justifyContent:'space-between',
   }),
   textInput: (AppTheme: any) => ({
     fontSize: SD.customFontSize(14),
     height: '100%',
-    width: '70%',
+    width: '85%',
     paddingLeft: SD.wp(5),
     fontFamily: Fonts['regular'],
     color: AppTheme.greytextColor,
   }),
   eyeStyle: (AppTheme: any) => ({
-    width: '12%',
+    width: '10%',
     height: '100%',
-    alignItems: 'center',
     justifyContent: 'center',
   }),
 });

@@ -12,7 +12,7 @@ const Stack: any = createNativeStackNavigator<any>();
 
 export const AppStack = () => {
   const { onBoardingCompleted } = useSelector((state: any) => state.onboarding);
-  const token = null;
+  const { token } = useSelector((state: any) => state.auth);
 
   const buildScreens = () => {
     if (!onBoardingCompleted && !token) {

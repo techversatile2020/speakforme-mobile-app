@@ -1,13 +1,13 @@
 import { CallingRoutes } from '../../constants';
-import { UnderDevelopmentScreen } from '../../features';
+import { CallScreen, HomeScreen } from '../../features';
 
 export const CallingStack: any[] = [
   {
     name: CallingRoutes.HomeScreen,
-    component: UnderDevelopmentScreen,
+    component: HomeScreen,
   },
   {
     name: CallingRoutes.CallScreen,
-    component: UnderDevelopmentScreen,
+    component: CallScreen,
   },
 ];

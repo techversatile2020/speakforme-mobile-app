@@ -42,12 +42,18 @@ export const SignupScreen = () => {
             phone: '',
             password: '',
             country: {
-              callingCode: '',
-              letterCode: '',
+              callingCode: '+92',
+              letterCode: 'PK',
             },
           }}
           validationSchema={signupValidationSchema}
-          onSubmit={values => {}}
+          onSubmit={values => {
+            console.log('CLICKED');
+
+            navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
+              from: 'signup',
+            });
+          }}
         >
           {({
             handleChange,
@@ -103,7 +109,9 @@ export const SignupScreen = () => {
                 <PhoneInput
                   defaultValue={values.phone}
                   defaultCode="PK"
-                  onChangeText={handleChange('phone')}
+                  onChangeText={n => {
+                    setFieldValue('phone', n);
+                  }}
                   containerStyle={styles.phoneInputContainer}
                   renderDropdownImage={
                     <Image

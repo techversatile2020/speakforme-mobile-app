@@ -7,6 +7,8 @@ export enum AuthRoutes {
   LoginScreen = 'Login',
   SignupScreen = 'Signup',
   ForgotPasswordScreen = 'ForgotPassword',
+  OTPVerificationScreen = 'OTPVerificationScreen',
+  ChangePasswordScreen = 'ChangePasswordScreen',
 }
 
 export enum CallingRoutes {

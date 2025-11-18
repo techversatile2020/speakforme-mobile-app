@@ -1,8 +1,10 @@
 import { AuthRoutes } from '../../constants';
 import {
+  ChangePasswordScreen,
+  ForgotPasswordScreen,
   LoginScreen,
+  OTPVerificationScreen,
   SignupScreen,
-  UnderDevelopmentScreen,
 } from '../../features';
 
 export const AuthStack: any[] = [
@@ -16,6 +18,14 @@ export const AuthStack: any[] = [
   },
   {
     name: AuthRoutes.ForgotPasswordScreen,
-    component: UnderDevelopmentScreen,
+    component: ForgotPasswordScreen,
+  },
+  {
+    name: AuthRoutes.OTPVerificationScreen,
+    component: OTPVerificationScreen,
+  },
+  {
+    name: AuthRoutes.ChangePasswordScreen,
+    component: ChangePasswordScreen,
   },
 ];
