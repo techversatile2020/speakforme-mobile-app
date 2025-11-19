@@ -17,7 +17,7 @@ export const ModalHeader = ({ title, onIconPress, subTitle }: any) => {
         )}
         {subTitle && (
           <Text regular size={14} color={AppTheme.textSecondary}>
-            ModalHeader
+            {subTitle}
           </Text>
         )}
       </View>

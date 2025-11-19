@@ -41,4 +41,14 @@ export const Icons = {
   delete: require('./icons/delete.png'),
   logout: require('./icons/logout.png'),
   close: require('./icons/close.png'),
+
+  mic: require('./icons/mic.png'),
+  language: require('./icons/language.png'),
+  speakingStyle: require('./icons/speakingStyle.png'),
+  search: require('./icons/search.png'),
+
+  volume: require('./icons/volume.png'),
+  play: require('./icons/play.png'),
+  pause: require('./icons/pause.png'),
+
 };

@@ -1,9 +1,13 @@
 import { SettingRoutes } from '../../constants';
-import { SettingScreen } from '../../features';
+import { SettingScreen, VoiceSettingScreen } from '../../features';
 
 export const SettingsStack: any[] = [
   {
     name: SettingRoutes.SettingScreen,
     component: SettingScreen,
+  },
+  {
+    name: SettingRoutes.VoiceSettingScreen,
+    component: VoiceSettingScreen,
   },
 ];

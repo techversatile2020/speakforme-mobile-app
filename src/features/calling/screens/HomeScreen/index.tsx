@@ -56,7 +56,7 @@ export const HomeScreen = () => {
                   autoCapitalize="none"
                   value={values.recipientsNumber}
                   onChangeText={handleChange('recipientsNumber')}
-                  placeholder="(234) 567 890"
+                  placeholder="+1 (234) 567 890"
                   isIcon
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="next"
@@ -80,7 +80,7 @@ export const HomeScreen = () => {
                 <CustomInput
                   value={values.yourNumber}
                   onChangeText={handleChange('yourNumber')}
-                  placeholder="(234) 567 890"
+                  placeholder="+1 (234) 567 890"
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="done"
                   error={

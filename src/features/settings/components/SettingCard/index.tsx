@@ -9,7 +9,7 @@ export const SettingCard = ({ data }: any) => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
 
-  const { title, icon, onPress } = data;
+  const { title, icon, onPress, subTitle } = data;
 
   return (
     <TouchableOpacity
@@ -19,9 +19,16 @@ export const SettingCard = ({ data }: any) => {
     >
       <View style={styles.leftSideView}>
         <Image source={icon} size={23} />
-        <Text bold size={16}>
-          {title}
-        </Text>
+        <View>
+          <Text bold size={16}>
+            {title}
+          </Text>
+          {subTitle && (
+            <Text color={AppTheme.textSecondary} regular size={12}>
+              {subTitle}
+            </Text>
+          )}
+        </View>
       </View>
       <Image source={Icons.rightArrow} size={20} />
     </TouchableOpacity>

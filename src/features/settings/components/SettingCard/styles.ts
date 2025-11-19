@@ -9,13 +9,10 @@ export const createStyles = (colors: typeof lightColors) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       marginVertical: SD.hp(20),
-      
-
     },
     leftSideView: {
       flexDirection: 'row',
       alignItems: 'center',
-      columnGap: SD.wp(5),
-      
+      columnGap: SD.wp(15),
     },
   });

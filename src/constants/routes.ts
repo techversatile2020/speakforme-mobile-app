@@ -18,4 +18,5 @@ export enum CallingRoutes {
 
 export enum SettingRoutes {
   SettingScreen = 'SettingScreen',
+  VoiceSettingScreen="VoiceSettingScreen"
 }

@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
-import { useTheme } from '../../../../theme';
-import { createStyles } from './styles';
-import {
-  CustomInput,
-  CustomModal,
-  Header,
-  MainContainer,
-  PrimaryButton,
-  Text,
-} from '../../../../components';
+import { Header, MainContainer, Text } from '../../../../components';
 import {
   ChangePasswordModal,
   DeleteAccountModal,
   EditProfileModal,
   LogoutModal,
-  ModalHeader,
   SettingCard,
 } from '../../components';
 import { Icons } from '../../../../assets';
+import { navigationServices } from '../../../../utils';
+import { SettingRoutes } from '../../../../constants';
 
 export const SettingScreen = () => {
-  const { AppTheme } = useTheme();
-  const styles = createStyles(AppTheme);
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
@@ -43,7 +33,8 @@ export const SettingScreen = () => {
       id: 3,
       title: 'Voice Settings',
       icon: Icons.voice,
-      onPress: () => null,
+      onPress: () =>
+        navigationServices.navigate(SettingRoutes['VoiceSettingScreen']),
     },
     {
       id: 4,

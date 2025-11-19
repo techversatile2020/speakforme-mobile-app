@@ -2,6 +2,7 @@ import React, { FC, Ref, useState } from 'react';
 import {
   Image,
   ImageProps,
+  ImageSourcePropType,
   ImageStyle,
   ScrollView,
   StyleSheet,
@@ -58,6 +59,9 @@ export type CustomInputProps = TextInputProps & {
   searchQuery?: string;
   onSearchPress?: (text: string) => void;
   iconImageStyles?: ImageStyle;
+  leftIconSource?: ImageSourcePropType;
+  leftIconPress?: () => void;
+  leftIconSourceStyles?: ImageStyle;
 };
 
 export const CustomInput: FC<CustomInputProps> = ({
@@ -82,6 +86,9 @@ export const CustomInput: FC<CustomInputProps> = ({
   onSearchQueryChange,
   searchQuery,
   iconImageStyles,
+  leftIconSource,
+  leftIconSourceStyles,
+  leftIconPress,
   ...rest
 }) => {
   const { AppTheme } = useTheme();
@@ -101,6 +108,21 @@ export const CustomInput: FC<CustomInputProps> = ({
           containerStyle,
         ]}
       >
+        {leftIconSource && (
+          <Image
+            source={leftIconSource}
+            style={[
+              {
+                width: SD.wp(20),
+                height: SD.hp(20),
+                // borderWidth:1,
+                resizeMode: 'contain',
+              },
+              // leftIconSourceStyles,
+            ]}
+            resizeMode="contain"
+          />
+        )}
         <TextInput
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
@@ -110,8 +132,8 @@ export const CustomInput: FC<CustomInputProps> = ({
           selectionColor={AppTheme.primary}
           style={[
             styles.textInput(AppTheme),
-            !eye || !isIcon && {
-              width: '100%',
+            (!eye || !isIcon || !leftIconSource) && {
+              width: '90%',
             },
             customStyle,
           ]}
@@ -204,7 +226,7 @@ const styles = StyleSheet.create<any>({
     alignItems: 'center',
     paddingLeft: SD.wp(10),
     paddingRight: SD.wp(10),
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
   }),
   textInput: (AppTheme: any) => ({
     fontSize: SD.customFontSize(14),
@@ -213,6 +235,7 @@ const styles = StyleSheet.create<any>({
     paddingLeft: SD.wp(5),
     fontFamily: Fonts['regular'],
     color: AppTheme.greytextColor,
+    
   }),
   eyeStyle: (AppTheme: any) => ({
     width: '10%',
