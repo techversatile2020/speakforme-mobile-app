@@ -57,7 +57,6 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
                   leftSpacing={5}
                   regular
                   size={14}
-        
                 >
                   Update your password for better security.
                 </Text>

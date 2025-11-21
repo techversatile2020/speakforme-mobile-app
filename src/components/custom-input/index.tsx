@@ -237,7 +237,6 @@ const styles = StyleSheet.create<any>({
     paddingLeft: SD.wp(5),
     fontFamily: Fonts['regular'],
     color: AppTheme.greytextColor,
-    
   }),
   eyeStyle: (AppTheme: any) => ({
     width: '10%',
