@@ -13,6 +13,7 @@ import { OtpInput } from 'react-native-otp-entry';
 import { navigationServices, SD } from '../../../../utils';
 import { TouchableOpacity, View } from 'react-native';
 import { AuthRoutes } from '../../../../constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 export const OTPVerificationScreen = ({ route }: any) => {
   const { AppTheme } = useTheme();
@@ -42,41 +43,49 @@ export const OTPVerificationScreen = ({ route }: any) => {
   return (
     <MainContainer>
       {from !== 'signup' && <Header />}
-      <View style={{ flex: 1 }}>
-        <Image source={Images.logo} size={189} align="center" />
-        <Text
-          color={AppTheme.textSecondary}
-          leftSpacing={5}
-          regular
-          size={14}
-          bottomSpacing={12}
-          topSpacing={20}
-        >
-          Please enter 6-digit code we have sent you on your email
-        </Text>
-        <OtpInput
-          numberOfDigits={6}
-          onTextChange={text => console.log(text)}
-          placeholder="******"
-          type="numeric"
-          focusColor={AppTheme.textPrimary}
-          theme={{
-            containerStyle: {
-              marginTop: SD.hp(10),
-            },
-          }}
-        />
-        <TouchableOpacity
-          style={styles.resendButton}
-          onPress={onResendPress}
-          disabled={timer !== 0}
-        >
-          <Text centered color={AppTheme.primary}>
-            {timer === 0 ? 'Resend code?' : `Resend code in ${timer}s`}
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1 }}
+        bottomOffset={SD.hp(50)}
+      >
+        <View style={{ flex: 1 }}>
+          <Image source={Images.logo} size={189} align="center" />
+          <Text
+            color={AppTheme.textSecondary}
+            leftSpacing={5}
+            regular
+            size={14}
+            bottomSpacing={12}
+            topSpacing={20}
+          >
+            Please enter 6-digit code we have sent you on your email
           </Text>
-        </TouchableOpacity>
-      </View>
-      <PrimaryButton title={'Confirm'} onPress={handleConfirm} />
+          <OtpInput
+            numberOfDigits={6}
+            onTextChange={text => console.log(text)}
+            placeholder="******"
+            type="numeric"
+            focusColor={AppTheme.textPrimary}
+            theme={{
+              containerStyle: {
+                marginTop: SD.hp(10),
+              },
+            }}
+          />
+          <TouchableOpacity
+            style={styles.resendButton}
+            onPress={onResendPress}
+            disabled={timer !== 0}
+          >
+            <Text centered color={AppTheme.primary}>
+              {timer === 0 ? 'Resend code?' : `Resend code in ${timer}s`}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <PrimaryButton title={'Confirm'} onPress={handleConfirm} />
+      </KeyboardAwareScrollView>
     </MainContainer>
   );
 };

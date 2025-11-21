@@ -134,6 +134,7 @@ export const CustomInput: FC<CustomInputProps> = ({
             styles.textInput(AppTheme),
             (!eye || !isIcon || !leftIconSource) && {
               width: '90%',
+              // borderWidth:1
             },
             customStyle,
           ]}
@@ -151,6 +152,7 @@ export const CustomInput: FC<CustomInputProps> = ({
               styles.eyeStyle(AppTheme),
               {
                 height: '50%',
+                // borderWidth:1
               },
               iconStyle,
             ]}

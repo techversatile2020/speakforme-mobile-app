@@ -22,6 +22,9 @@
 		E380AE4AC0944F4DA1F4663B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61143AA9CAF54D849C718922 /* Lato-Bold.ttf */; };
 		EBF4B29FBC4241F99D4B9F69 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82A7F1A5804347E78AC299B5 /* Lato-Black.ttf */; };
 		ED8564C4211D40759B76F827 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207418FCB1614EEBA809FD0B /* Lato-Regular.ttf */; };
+		F08C6E732ED066EC00B2EF01 /* voice1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08C6E722ED066EB00B2EF01 /* voice1.mp3 */; };
+		F08C6E752ED066FD00B2EF01 /* voice2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08C6E742ED066FD00B2EF01 /* voice2.mp3 */; };
+		F08C6E772ED0670F00B2EF01 /* voice3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08C6E762ED0670F00B2EF01 /* voice3.mp3 */; };
 		FC706F71A8154274AF0170CD /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 970D4B64DA12410E9BBC4F9D /* Lato-BlackItalic.ttf */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +50,9 @@
 		E107C1030BC9455B88981D4D /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../src/assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		EBF750E4688F4F20B1CE69E6 /* Lato-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Light.ttf"; path = "../src/assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F08C6E722ED066EB00B2EF01 /* voice1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voice1.mp3; sourceTree = "<group>"; };
+		F08C6E742ED066FD00B2EF01 /* voice2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voice2.mp3; sourceTree = "<group>"; };
+		F08C6E762ED0670F00B2EF01 /* voice3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voice3.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,9 @@
 		C819E00FF56749328EF07F43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F08C6E762ED0670F00B2EF01 /* voice3.mp3 */,
+				F08C6E742ED066FD00B2EF01 /* voice2.mp3 */,
+				F08C6E722ED066EB00B2EF01 /* voice1.mp3 */,
 				82A7F1A5804347E78AC299B5 /* Lato-Black.ttf */,
 				970D4B64DA12410E9BBC4F9D /* Lato-BlackItalic.ttf */,
 				61143AA9CAF54D849C718922 /* Lato-Bold.ttf */,
@@ -199,9 +208,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F08C6E752ED066FD00B2EF01 /* voice2.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				21BA95FFBA1CF618ED033D63 /* PrivacyInfo.xcprivacy in Resources */,
+				F08C6E772ED0670F00B2EF01 /* voice3.mp3 in Resources */,
 				EBF4B29FBC4241F99D4B9F69 /* Lato-Black.ttf in Resources */,
 				FC706F71A8154274AF0170CD /* Lato-BlackItalic.ttf in Resources */,
 				E380AE4AC0944F4DA1F4663B /* Lato-Bold.ttf in Resources */,
@@ -209,6 +220,7 @@
 				2B96B532B396482793E8C5DE /* Lato-Italic.ttf in Resources */,
 				641CCEE4997F4BEC95D781B3 /* Lato-Light.ttf in Resources */,
 				168D412FDA6C48D38B24F699 /* Lato-LightItalic.ttf in Resources */,
+				F08C6E732ED066EC00B2EF01 /* voice1.mp3 in Resources */,
 				ED8564C4211D40759B76F827 /* Lato-Regular.ttf in Resources */,
 				2F29FF15F1A5482DA6A13E66 /* Lato-Thin.ttf in Resources */,
 				C45E420E9C53430FB293F12F /* Lato-ThinItalic.ttf in Resources */,
@@ -243,9 +255,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-speakforme/Pods-speakforme-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-speakforme/Pods-speakforme-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -282,9 +298,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-speakforme/Pods-speakforme-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-speakforme/Pods-speakforme-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -312,6 +332,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X7TT399C39;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = speakforme/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Speak For Me";
@@ -326,7 +347,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speakforme;
 				PRODUCT_NAME = speakforme;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -341,6 +362,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X7TT399C39;
 				INFOPLIST_FILE = speakforme/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Speak For Me";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -354,7 +376,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speakforme;
 				PRODUCT_NAME = speakforme;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

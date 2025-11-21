@@ -24,9 +24,10 @@ export const createStyles = (colors: typeof lightColors) =>
       // flexWrap: 'wrap',
     },
     flatlistContainer: {
-      // flexDirection: 'row',
-      // flexWrap: 'wrap',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
       width: '100%',
+
     },
     buttonsView: {
       position: 'absolute',

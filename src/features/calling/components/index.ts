@@ -1,1 +1,2 @@
-export * from './BasicCommunicationCard'
+export * from './BasicCommunicationCard';
+export * from './ContactPicker';

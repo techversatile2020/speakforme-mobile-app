@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CustomInput,
   Header,
@@ -12,8 +12,10 @@ import { navigationServices, SD } from '../../../../utils';
 import { Formik } from 'formik';
 import { View } from 'react-native';
 import { CallingRoutes, SettingRoutes } from '../../../../constants';
+import { ContactPicker } from '../../components';
 
 export const HomeScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const handleGoToSettings = () =>
     navigationServices.navigate(SettingRoutes['SettingScreen']);
 
@@ -72,7 +74,7 @@ export const HomeScreen = () => {
                     height: SD.wp(24),
                   }}
                   isPressableIcon
-                  onBtnPress={() => null}
+                  onBtnPress={() => setModalVisible(true)}
                 />
                 <Text leftSpacing={5} regular size={14} topSpacing={20}>
                   Your Number
@@ -92,6 +94,13 @@ export const HomeScreen = () => {
                 />
               </View>
               <PrimaryButton title={'Start Call'} onPress={handleSubmit} />
+              <ContactPicker
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onSelect={contact =>
+                  setFieldValue('recipientsNumber', contact.phoneNumber)
+                }
+              />
             </View>
           )}
         </Formik>

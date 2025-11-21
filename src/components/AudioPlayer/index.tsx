@@ -8,25 +8,30 @@ import { SD } from '../../utils';
 
 Sound.setCategory('Playback');
 
-export const AudioPlayer = ({ url }: any) => {
+export const AudioPlayer = ({ url, isLoading, setIsLoading }: any) => {
   const soundRef = useRef<Sound | null>(null);
   const intervalRef = useRef<any>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
-const [isBuffering, setIsBuffering] = useState(false);
 
   // ───────────────────────────────────────────────
   // Load Sound on Mount
   // ───────────────────────────────────────────────
+
   useEffect(() => {
-    const sound = new Sound(url, undefined, err => {
+    console.log('AUDIO URL => ', url);
+
+    const sound = new Sound(url, Sound.MAIN_BUNDLE, err => {
       if (err) {
         console.log('Audio Load Error:', err);
         return;
       }
       setDuration(sound.getDuration());
+      if (sound.isLoaded()) {
+        setIsLoading(false);
+      }
     });
 
     soundRef.current = sound;
@@ -36,8 +41,6 @@ const [isBuffering, setIsBuffering] = useState(false);
       sound.release();
     };
   }, [url]);
-
-
 
   // ───────────────────────────────────────────────
   // Progress Tracking Timer

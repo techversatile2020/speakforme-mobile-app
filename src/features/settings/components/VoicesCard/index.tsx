@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '../../../../theme';
 import { AudioPlayer, Text } from '../../../../components';
 import { SD } from '../../../../utils';
@@ -24,6 +24,12 @@ export const VoicesCard = ({
 }: VoicesCardPropsType) => {
   const { AppTheme } = useTheme();
   const { title, subTitle, id, audio } = data || {};
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('IsLoading -> ', isLoading);
+  }, [isLoading]);
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -48,7 +54,14 @@ export const VoicesCard = ({
           ]}
         />
       </View>
-      {voice && <AudioPlayer url={audio} id={id} />}
+      {voice && (
+        <AudioPlayer
+          url={audio}
+          id={id}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+        />
+      )}
     </TouchableOpacity>
   );
 };

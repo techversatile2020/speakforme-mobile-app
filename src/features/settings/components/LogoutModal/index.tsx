@@ -4,9 +4,15 @@ import { CustomModal, PrimaryButton, Text } from '../../../../components';
 import { ModalHeader } from '../ModalHeader';
 import { useTheme } from '../../../../theme';
 import { SD } from '../../../../utils';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../../../redux/authSlices';
 
 export const LogoutModal = ({ visible, onClose }: any) => {
   const { AppTheme } = useTheme();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(setToken(null));
+  };
   return (
     <CustomModal
       visible={visible}
@@ -38,6 +44,7 @@ export const LogoutModal = ({ visible, onClose }: any) => {
           <PrimaryButton
             title={'Logout'}
             customStyles={{ backgroundColor: AppTheme.red, width: '48%' }}
+            onPress={handleLogout}
           />
         </View>
       </View>

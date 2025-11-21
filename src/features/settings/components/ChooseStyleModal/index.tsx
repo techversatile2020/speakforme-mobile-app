@@ -8,6 +8,7 @@ import {
 import { ModalHeader } from '../ModalHeader';
 import { SD } from '../../../../utils';
 import { VoicesCard } from '../VoicesCard';
+import { Audios } from '../../../../assets';
 
 export const ChooseStyleModal = ({ visible, onClose }: any) => {
   const [selectedVoice, setSelectedVoice] = useState(null);
@@ -17,19 +18,19 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
       id: 1,
       title: 'English (United States)',
       subTitle: 'en-US',
-      audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+      audio: 'voice1.mp3',
     },
     {
       id: 2,
       title: 'English (United States)',
       subTitle: 'en-US',
-      audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+      audio: 'voice2.mp3',
     },
     {
       id: 3,
       title: 'English (United States)',
       subTitle: 'en-US',
-      audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+      audio: 'voice3.mp3',
     },
   ];
 

@@ -69,7 +69,7 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
                   hidepswdState={isPasswordVisible1}
                   onEyePress={() => setIsPasswordVisible1(!isPasswordVisible1)}
                   placeholder="Old Password"
-                  isIcon
+                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}
@@ -90,7 +90,7 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
                   hidepswdState={isPasswordVisible2}
                   onEyePress={() => setIsPasswordVisible2(!isPasswordVisible2)}
                   placeholder="New Password"
-                  isIcon
+                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}
@@ -113,7 +113,7 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
                   hidepswdState={isPasswordVisible3}
                   onEyePress={() => setisPasswordVisible3(!isPasswordVisible3)}
                   placeholder="Confirm Password"
-                  isIcon
+                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}

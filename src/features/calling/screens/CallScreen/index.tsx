@@ -69,15 +69,15 @@ export const CallScreen = () => {
         </View>
       </ScrollView>
       <View style={[styles.buttonsView]}>
-        <TouchableOpacity style={styles.phoneButton} activeOpacity={0.7}>
-          <Image source={Icons.phone} size={27} />
-        </TouchableOpacity>
         <PrimaryButton
           title={'Send'}
           customStyles={styles.sendButtonStyles}
           iconSource={Icons.send}
           fontSize={17}
         />
+        <TouchableOpacity style={styles.phoneButton} activeOpacity={0.7}>
+          <Image source={Icons.phone} size={27} />
+        </TouchableOpacity>
       </View>
     </MainContainer>
   );

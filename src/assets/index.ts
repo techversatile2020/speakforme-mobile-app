@@ -50,5 +50,10 @@ export const Icons = {
   volume: require('./icons/volume.png'),
   play: require('./icons/play.png'),
   pause: require('./icons/pause.png'),
+};
 
+export const Audios = {
+  voice1: require('./audios/voice1.mp3'),
+  voice2: require('./audios/voice2.mp3'),
+  voice3: require('./audios/voice3.mp3'),
 };
