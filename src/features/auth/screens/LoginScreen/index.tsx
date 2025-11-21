@@ -16,15 +16,11 @@ import { Formik } from 'formik';
 import { validationSchema } from './validation.schema';
 import { TextInput, View } from 'react-native';
 import { CardContainer } from '../../../../components/card-container';
-import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../../../redux/authSlices';
-import { store } from '../../../../redux';
 import { useLogin } from '../../../../hooks';
 
 export const LoginScreen = () => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
-  const dispatch = useDispatch();
   const passwordRef = useRef<TextInput>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

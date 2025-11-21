@@ -18,6 +18,8 @@ export const useLogin = () => {
     mutationFn: login,
 
     onSuccess: async res => {
+      console.log('RES FROM USE LOGIN => ',res);
+      
       const token = res?.data?.access_token;
       if (token) {
         store.dispatch(setToken(token));
@@ -34,6 +36,7 @@ export const useLogin = () => {
       // }
     },
     onError: (err: any) => {
+
       let msg = 'Login failed. Please try again.';
       if (err?.response?.data) {
         if (typeof err.response.data === 'string') {
