@@ -26,7 +26,7 @@ export const useLogin = () => {
           const user = await getMe();
           store.dispatch(setUser(user.data));
         } catch (err) {
-          return;
+          return console.log('useLogin: ', err);
         }
       }
       // else {
@@ -52,26 +52,26 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
     onSuccess: (res, vars) => {
-      navigationServices.navigate(AuthRoutes.ForgotPasswordScreen, {
+      navigationServices.navigate(AuthRoutes.OTPVerificationScreen, {
         email: vars.email,
         from: 'signup',
       });
     },
     onError: (err: any) => {
       const msg = err?.response?.data?.error_message;
+      console.log('ERROR => ', err);
     },
   });
 };
 
-export const useForgotPassword = ({}) => {
+export const useForgotPassword = () => {
   return useMutation({
     mutationFn: forgotPassword,
     onSuccess: (res, vars) => {
-      navigationServices.navigate(AuthRoutes.ForgotPasswordScreen, {
+      navigationServices.navigate(AuthRoutes.OTPVerificationScreen, {
         email: vars.email,
         from: 'forgot',
       });
-      vars?.onSuccess?.();
     },
     onError: (err: any) => {
       const msg = err?.response?.data?.error_message;
@@ -79,12 +79,15 @@ export const useForgotPassword = ({}) => {
   });
 };
 
-export const useVerifyAccount = () => {
+export const useVerifyAccount = (callback?: any) => {
   return useMutation({
     mutationFn: verifyAccount,
-    onSuccess: res => {},
+    onSuccess: res => {
+      console.log('useVerifyAccount onSuccess ->  ', res);
+      callback?.();
+    },
     onError: (err: any) => {
-      const msg = err?.response?.data?.error_message;
+      console.log('useVerifyAccount onError ->  ', err);
     },
   });
 };
@@ -125,10 +128,8 @@ export const useResendOtp = () => {
     onSuccess: (res: any) => {
       console.log('✅ OTP resent response:', res);
     },
-
     onError: (err: any) => {
-      const msg =
-        err?.response?.data?.error_message || err?.response?.data?.message;
+      console.log('useResendOtp ERROR => ', err);
     },
   });
 };

@@ -14,12 +14,16 @@ import { Formik } from 'formik';
 import { TextInput, View } from 'react-native';
 import { validationSchema } from './validation.schema';
 import { AuthRoutes } from '../../../../constants';
+import { useResetPassword } from '../../../../hooks';
 
-export const ChangePasswordScreen = () => {
+export const ChangePasswordScreen = ({ route }: any) => {
   const { AppTheme } = useTheme();
   const [isPasswordVisible1, setIsPasswordVisible1] = useState(false);
   const [isPasswordVisible2, setIsPasswordVisible2] = useState(false);
   const confirmPasswordRef = useRef<TextInput>(null);
+  const { email } = route?.params || {};
+
+  const { mutate: resetPasswordMutate } = useResetPassword();
 
   return (
     <MainContainer>
@@ -33,7 +37,11 @@ export const ChangePasswordScreen = () => {
           initialValues={{ password: '', confirm_password: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            navigationServices.reset_0(AuthRoutes['LoginScreen']);
+            // navigationServices.reset_0(AuthRoutes['LoginScreen']);
+            resetPasswordMutate({
+              email,
+              password: values.password,
+            });
           }}
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (

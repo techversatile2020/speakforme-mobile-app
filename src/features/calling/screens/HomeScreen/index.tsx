@@ -13,9 +13,12 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 import { CallingRoutes, SettingRoutes } from '../../../../constants';
 import { ContactPicker } from '../../components';
+import { useSelector } from 'react-redux';
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const {  user } = useSelector((state: any) => state.auth);
+
   const handleGoToSettings = () =>
     navigationServices.navigate(SettingRoutes['SettingScreen']);
 
@@ -24,7 +27,7 @@ export const HomeScreen = () => {
       <Header
         mainHeader
         title="Good Morning"
-        subHeading="Joel Osteen"
+        subHeading={user?.username}
         iconSource={Icons.settings}
         onIconPress={handleGoToSettings}
       />

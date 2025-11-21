@@ -17,10 +17,12 @@ import { CardContainer } from '../../../../components/card-container';
 import PhoneInput from '@linhnguyen96114/react-native-phone-input';
 import { AuthRoutes } from '../../../../constants';
 import { signupValidationSchema } from './validation.schema';
+import { useSignup } from '../../../../hooks';
 
 export const SignupScreen = () => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
+  const { mutate: signUp, isPending } = useSignup();
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const fullNameRef = useRef<TextInput>(null);
@@ -48,11 +50,18 @@ export const SignupScreen = () => {
           }}
           validationSchema={signupValidationSchema}
           onSubmit={values => {
-            console.log('CLICKED');
+            const payload = {
+              username: values.fullName,
+              email: values.email,
+              password: values.password,
+              mobile: `${values.country.callingCode}${values.phone}`,
+            };
+            signUp(payload);
+            console.log('VALUES => ', payload);
 
-            navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-              from: 'signup',
-            });
+            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
+            //   from: 'signup',
+            // });
           }}
         >
           {({
@@ -136,7 +145,7 @@ export const SignupScreen = () => {
                   hidepswdState={isPasswordVisible}
                   onEyePress={() => setIsPasswordVisible(!isPasswordVisible)}
                   placeholder="Enter password"
-                  isIcon
+                  // isIcon
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="done"
                   error={
@@ -150,6 +159,7 @@ export const SignupScreen = () => {
                   title={'Register Now'}
                   onPress={handleSubmit}
                   customStyles={{ marginTop: SD.hp(20), height: SD.hp(58) }}
+                  isLoading={isPending}
                 />
                 <View style={styles.footer}>
                   <Text size={11} regular>

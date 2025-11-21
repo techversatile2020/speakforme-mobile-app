@@ -5,10 +5,12 @@ import { setToken } from '../redux/authSlices';
 
 
 const customAxios = (contentType = 'application/json') => {
+  console.log(`${BASE_URL}${BASE_PATH}`);
+  
   const instance = axios.create({
     baseURL: `${BASE_URL}${BASE_PATH}`,
     headers: {'Content-Type': contentType},
-    timeout: API_TIMEOUT,
+    timeout: Number(API_TIMEOUT),
   });
 
   // Request interceptor

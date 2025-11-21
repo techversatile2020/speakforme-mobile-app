@@ -14,9 +14,11 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 import { validationSchema } from './validation.schema';
 import { AuthRoutes } from '../../../../constants';
+import { useForgotPassword } from '../../../../hooks';
 
 export const ForgotPasswordScreen = () => {
   const { AppTheme } = useTheme();
+  const { mutate: forgotPasswordMutate,isPending } = useForgotPassword();
   return (
     <MainContainer>
       <Header />
@@ -30,7 +32,10 @@ export const ForgotPasswordScreen = () => {
           initialValues={{ email: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
+            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
+            forgotPasswordMutate({
+              email: values.email,
+            });
           }}
         >
           {({
@@ -70,6 +75,7 @@ export const ForgotPasswordScreen = () => {
               <PrimaryButton
                 title={'Continue'}
                 onPress={handleSubmit}
+                isLoading={isPending}
                 customStyles={{ marginTop: SD.hp(20), height: SD.hp(58) }}
               />
             </View>

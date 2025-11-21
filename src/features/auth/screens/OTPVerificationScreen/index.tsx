@@ -14,12 +14,25 @@ import { navigationServices, SD } from '../../../../utils';
 import { TouchableOpacity, View } from 'react-native';
 import { AuthRoutes } from '../../../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { useResendOtp, useVerifyAccount } from '../../../../hooks';
 
 export const OTPVerificationScreen = ({ route }: any) => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
-  const { from } = route?.params || {};
+  const { from, email } = route?.params || {};
   const [timer, setTimer] = useState(60);
+  const [otp, setotp] = useState('');
+
+  const { mutate: resendOtp } = useResendOtp();
+  const { mutate: verifyAccount, isPending } = useVerifyAccount(() => {
+    if (from == 'signup') {
+      navigationServices.reset_0(AuthRoutes.LoginScreen);
+    } else {
+      navigationServices.reset_0(AuthRoutes.ChangePasswordScreen, { email });
+    }
+  });
+
+  const flowTypeUrl = from === 'signup' ? 'verify_otp' : 'forgot_password';
 
   useEffect(() => {
     if (timer === 0) return;
@@ -32,13 +45,22 @@ export const OTPVerificationScreen = ({ route }: any) => {
 
   const onResendPress = () => {
     setTimer(60);
-    console.log('Resend code triggered');
+    resendOtp({ email, otp_type: flowTypeUrl });
   };
 
   const handleConfirm = () => {
-    if (from == 'signup')
-      return navigationServices.reset_0(AuthRoutes['LoginScreen']);
-    navigationServices.navigate(AuthRoutes['ChangePasswordScreen']);
+    // if (from == 'signup')
+    //   return navigationServices.reset_0(AuthRoutes['LoginScreen']);
+    // navigationServices.navigate(AuthRoutes['ChangePasswordScreen']);
+
+    const payload = {
+      email: email,
+      otp: '000000',
+      otp_type: flowTypeUrl,
+    };
+    console.log('PAYLOAD => ', payload);
+
+    verifyAccount(payload);
   };
   return (
     <MainContainer>
@@ -63,7 +85,7 @@ export const OTPVerificationScreen = ({ route }: any) => {
           </Text>
           <OtpInput
             numberOfDigits={6}
-            onTextChange={text => console.log(text)}
+            onTextChange={text => setotp(text)}
             placeholder="******"
             type="numeric"
             focusColor={AppTheme.textPrimary}
@@ -84,7 +106,11 @@ export const OTPVerificationScreen = ({ route }: any) => {
           </TouchableOpacity>
         </View>
 
-        <PrimaryButton title={'Confirm'} onPress={handleConfirm} />
+        <PrimaryButton
+          title={'Confirm'}
+          onPress={handleConfirm}
+          isLoading={isPending}
+        />
       </KeyboardAwareScrollView>
     </MainContainer>
   );

@@ -19,16 +19,17 @@ import { CardContainer } from '../../../../components/card-container';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../../../redux/authSlices';
 import { store } from '../../../../redux';
+import { useLogin } from '../../../../hooks';
 
 export const LoginScreen = () => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
   const dispatch = useDispatch();
-  const {token} = useSelector((state:any)=>state.auth)
   const passwordRef = useRef<TextInput>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  console.log('TOKEN => ',token);
-  
+
+  const { mutate: login, isPending } = useLogin();
+
   return (
     <MainContainer>
       <KeyboardAwareScrollView
@@ -41,9 +42,11 @@ export const LoginScreen = () => {
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            console.log('LOGIN ONSUBMITE',values);
-            
-            store.dispatch(setToken('abc'));
+            const payload = {
+              email: values.email.trim().toLowerCase(),
+              password: values.password,
+            };
+            login(payload);
           }}
         >
           {({
@@ -90,7 +93,7 @@ export const LoginScreen = () => {
                   hidepswdState={isPasswordVisible}
                   onEyePress={() => setIsPasswordVisible(!isPasswordVisible)}
                   placeholder="Enter password"
-                  isIcon
+                  // isIcon
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="done"
                   error={
@@ -122,6 +125,7 @@ export const LoginScreen = () => {
                 <PrimaryButton
                   title={'Login'}
                   onPress={handleSubmit}
+                  isLoading={isPending}
                   customStyles={{ marginTop: SD.hp(20), height: SD.hp(58) }}
                 />
                 <View style={styles.footer}>

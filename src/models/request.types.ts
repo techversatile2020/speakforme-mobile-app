@@ -4,7 +4,7 @@ export type LoginBodyType = {
 };
 
 export type forgotPasswordBodyType = {
-  onSuccess(): unknown;
+  onSuccess?(): unknown;
   email?: string;
 };
 
