@@ -1,215 +1,134 @@
-import { useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
-  ChangePasswordBodyType,
-  LoginBodyType,
-  ResetPasswordBodyType,
-  SignupBodyType,
-  VerifyAccountBodyType,
-  forgotPasswordBodyType,
-} from './../../models';
-import {
+  forgotPassword,
   getMe,
   login,
+  resentOTP,
+  resetPassword,
   signup,
-  forgotPassword as forgotPasswordAPI,
-  verifyAccount as verifyAccountAPI,
-  resetPassword as resetPasswordAPI,
-  changePassword as newPasswordAPI,
+  verifyAccount,
 } from '../../api';
-import { setToken, setUser } from '../../redux/authSlices';
 import { store } from '../../redux';
+import { setToken, setUser } from '../../redux/authSlices';
 import { navigationServices } from '../../utils';
 import { AuthRoutes } from '../../constants';
 
-export const authFlow = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export const useLogin = () => {
+  return useMutation({
+    mutationFn: login,
 
-  const fetchUser = async () => {
-    try {
-      const response = await getMe();
-      store.dispatch(setUser(response.data));
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.data?.message || err.message || 'Failed to fetch user';
-      setError(errorMsg);
-    }
-  };
-
-  const signIn = async (body: LoginBodyType, onSuccess?: () => void) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await login(body);
-      const result = response?.data;
-
-      if (result?.data?.token) {
-        store.dispatch(setToken(result.data?.token));
-        await fetchUser();
-        if (typeof onSuccess === 'function') {
-          await onSuccess();
+    onSuccess: async res => {
+      const token = res?.data?.access_token;
+      if (token) {
+        store.dispatch(setToken(token));
+        // Fetch and store user
+        try {
+          const user = await getMe();
+          store.dispatch(setUser(user.data));
+        } catch (err) {
+          return;
         }
       }
-
-      if (result?.message == 'user is not verified, must verify first') {
-        setTimeout(() => {
-          navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-            email: body.email,
-            from: 'signup',
-          });
-        }, 500);
+      // else {
+      //   toast.fail('Token not found in response');
+      // }
+    },
+    onError: (err: any) => {
+      let msg = 'Login failed. Please try again.';
+      if (err?.response?.data) {
+        if (typeof err.response.data === 'string') {
+          msg = err.response.data;
+        } else {
+          msg = err.response.data.error_message;
+        }
+      } else if (err?.message) {
+        msg = err.message;
       }
+    },
+  });
+};
 
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.message || err?.response?.message || err?.data?.message;
-      setError(err?.re);
-      throw errorMsg;
-    } finally {
-      setLoading(false);
-    }
-  };
+export const useSignup = () => {
+  return useMutation({
+    mutationFn: signup,
+    onSuccess: (res, vars) => {
+      navigationServices.navigate(AuthRoutes.ForgotPasswordScreen, {
+        email: vars.email,
+        from: 'signup',
+      });
+    },
+    onError: (err: any) => {
+      const msg = err?.response?.data?.error_message;
+    },
+  });
+};
 
-  const signUp = async (body: SignupBodyType) => {
-    try {
-      setLoading(true);
-      setError(null);
+export const useForgotPassword = ({}) => {
+  return useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: (res, vars) => {
+      navigationServices.navigate(AuthRoutes.ForgotPasswordScreen, {
+        email: vars.email,
+        from: 'forgot',
+      });
+      vars?.onSuccess?.();
+    },
+    onError: (err: any) => {
+      const msg = err?.response?.data?.error_message;
+    },
+  });
+};
 
-      const response = await signup(body);
-      const result = response?.data;
-      if (result?.status) {
-        navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-          email: body.email,
-          from: 'signup',
-        });
-      }
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.message ||
-        err?.message ||
-        err?.data?.message ||
-        err?.response?.data?.message ||
-        'Something went wrong. Please try again later.';
-      setError(errorMsg);
-      throw errorMsg;
-    } finally {
-      setLoading(false);
-    }
-  };
+export const useVerifyAccount = () => {
+  return useMutation({
+    mutationFn: verifyAccount,
+    onSuccess: res => {},
+    onError: (err: any) => {
+      const msg = err?.response?.data?.error_message;
+    },
+  });
+};
 
-  const forgotPassword = async (body: forgotPasswordBodyType) => {
-    try {
-      setLoading(true);
-      setError(null);
+export const useVerifyPwdOtp = () => {
+  return useMutation({
+    mutationFn: verifyAccount,
+    onSuccess: res => {},
 
-      const response = await forgotPasswordAPI(body);
-      const result = response?.data;
+    onError: (err: any) => {
+      const msg = err?.response?.data?.error_message;
+    },
+  });
+};
 
-      if (result) {
-        navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-          email: body.email,
-          from: 'forgot',
-        });
-      }
+export const useResetPassword = () => {
+  return useMutation({
+    mutationFn: resetPassword,
+    onSuccess: res => {
+      navigationServices.reset_0(AuthRoutes.LoginScreen);
+    },
+    onError: (err: any) => {
+      const msg = err?.response?.data?.error_message;
+    },
+  });
+};
 
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.message ||
-        err?.message ||
-        err?.data?.message ||
-        err?.response?.data?.message ||
-        'Something went wrong. Please try again later.';
-      setError(errorMsg);
-    } finally {
-      setLoading(false);
-    }
-  };
+export const useGetMe = () => {
+  return useQuery({
+    queryFn: getMe,
+    queryKey: ['me'],
+  });
+};
 
-  const verifyAccount = async (body: VerifyAccountBodyType) => {
-    try {
-      setLoading(true);
-      setError(null);
+export const useResendOtp = () => {
+  return useMutation({
+    mutationFn: resentOTP,
+    onSuccess: (res: any) => {
+      console.log('✅ OTP resent response:', res);
+    },
 
-      const response = await verifyAccountAPI(body); // POST API
-      const result = response?.data?.message;
-
-      if (result) {
-        setTimeout(() => {
-          navigationServices.navigate(AuthRoutes['LoginScreen']);
-        }, 1500);
-      }
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.message ||
-        err?.message ||
-        err?.data?.message ||
-        err?.response?.data?.message ||
-        'Something went wrong. Please try again later.';
-      setError(errorMsg);
-      throw errorMsg;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const resetPassword = async (body: ResetPasswordBodyType) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await resetPasswordAPI(body); // PATCH API
-      const result = response?.data;
-      if (result?.status || result?.message === 'Password Reset Succesful') {
-        navigationServices.navigate(AuthRoutes['LoginScreen']);
-      }
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.message ||
-        err?.message ||
-        err?.data?.message ||
-        err?.response?.data?.message ||
-        'Something went wrong. Please try again later.';
-      setError(errorMsg);
-      throw errorMsg;
-    } finally {
-      setLoading(false);
-    }
-  };
-  const changeNewPassword = async (body: ChangePasswordBodyType) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await newPasswordAPI(body); // Make sure this is a PATCH call inside AuthApis
-      const result = response?.data;
-      return result;
-    } catch (err: any) {
-      const errorMsg =
-        err?.response?.message ||
-        err?.message ||
-        err?.data?.message ||
-        err?.response?.data?.message ||
-        'Something went wrong. Please try again later.';
-      setError(errorMsg);
-      throw errorMsg;
-    } finally {
-      setLoading(false);
-    }
-  };
-  return {
-    signIn,
-    signUp,
-    forgotPassword,
-    verifyAccount,
-    resetPassword,
-    loading,
-    error,
-    changeNewPassword,
-    fetchUser,
-  };
+    onError: (err: any) => {
+      const msg =
+        err?.response?.data?.error_message || err?.response?.data?.message;
+    },
+  });
 };
