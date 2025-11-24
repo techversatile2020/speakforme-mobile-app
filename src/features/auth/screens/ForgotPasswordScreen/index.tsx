@@ -32,10 +32,10 @@ export const ForgotPasswordScreen = () => {
           initialValues={{ email: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
-            forgotPasswordMutate({
-              email: values.email,
-            });
+            navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
+            // forgotPasswordMutate({
+            //   email: values.email,
+            // });
           }}
         >
           {({

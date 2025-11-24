@@ -47,12 +47,15 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="100%"
+      
     >
       <ModalHeader
         title="Choose a Voice"
         subTitle="Pick the voice that best matches your style."
         onIconPress={onClose}
+        containerStyles={{paddingTop:SD.hp(40)}}
+        
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <CustomInput

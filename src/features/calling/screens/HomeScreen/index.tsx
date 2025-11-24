@@ -17,17 +17,43 @@ import { useSelector } from 'react-redux';
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const {  user } = useSelector((state: any) => state.auth);
+  const { user } = useSelector((state: any) => state.auth);
 
   const handleGoToSettings = () =>
     navigationServices.navigate(SettingRoutes['SettingScreen']);
 
+  const formatPhoneNumber = (text: string) => {
+    // remove all non-digits
+    const cleaned = text.replace(/\D/g, '');
+
+    // allow empty
+    if (cleaned.length === 0) return '';
+
+    // US/Canada formatting with +1
+    if (cleaned.length <= 1) {
+      return `+${cleaned}`;
+    }
+    if (cleaned.length <= 4) {
+      return `+${cleaned[0]} (${cleaned.slice(1)}`;
+    }
+    if (cleaned.length <= 7) {
+      return `+${cleaned[0]} (${cleaned.slice(1, 4)}) ${cleaned.slice(4)}`;
+    }
+    if (cleaned.length <= 11) {
+      return `+${cleaned[0]} (${cleaned.slice(1, 4)}) ${cleaned.slice(
+        4,
+        7,
+      )} ${cleaned.slice(7)}`;
+    }
+
+    return text; // fallback
+  };
   return (
     <MainContainer>
       <Header
         mainHeader
         title="Good Morning"
-        subHeading={user?.username}
+        subHeading={user?.username || 'User'}
         iconSource={Icons.settings}
         onIconPress={handleGoToSettings}
       />
@@ -60,8 +86,11 @@ export const HomeScreen = () => {
                 <CustomInput
                   autoCapitalize="none"
                   value={values.recipientsNumber}
-                  onChangeText={handleChange('recipientsNumber')}
-                  placeholder="+1 (234) 567 890"
+                  // onChangeText={handleChange('recipientsNumber')}
+                  onChangeText={text => {
+                    setFieldValue('recipientsNumber', formatPhoneNumber(text));
+                  }}
+                  placeholder="+1 (919) 555 8247"
                   isIcon
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="next"
@@ -78,14 +107,18 @@ export const HomeScreen = () => {
                   }}
                   isPressableIcon
                   onBtnPress={() => setModalVisible(true)}
+                  maxLength={20}
                 />
                 <Text leftSpacing={5} regular size={14} topSpacing={20}>
                   Your Number
                 </Text>
                 <CustomInput
                   value={values.yourNumber}
-                  onChangeText={handleChange('yourNumber')}
-                  placeholder="+1 (234) 567 890"
+                  // onChangeText={handleChange('yourNumber')}
+                  onChangeText={text =>
+                    setFieldValue('yourNumber', formatPhoneNumber(text))
+                  }
+                  placeholder="+1 (919) 555 8247"
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="done"
                   error={
@@ -94,6 +127,7 @@ export const HomeScreen = () => {
                       : undefined
                   }
                   keyboardType="phone-pad"
+                  maxLength={20}
                 />
               </View>
               <PrimaryButton title={'Start Call'} onPress={handleSubmit} />

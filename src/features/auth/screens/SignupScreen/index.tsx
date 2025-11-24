@@ -9,7 +9,11 @@ import {
   Text,
 } from '../../../../components';
 import { Icons, Images } from '../../../../assets';
-import { navigationServices, SD } from '../../../../utils';
+import {
+  formatInternationalPhone,
+  navigationServices,
+  SD,
+} from '../../../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { TextInput, View } from 'react-native';
@@ -44,24 +48,23 @@ export const SignupScreen = () => {
             phone: '',
             password: '',
             country: {
-              callingCode: '+92',
-              letterCode: 'PK',
+              callingCode: '+1',
+              letterCode: 'US',
             },
           }}
           validationSchema={signupValidationSchema}
           onSubmit={values => {
-            const payload = {
-              username: values.fullName,
-              email: values.email,
-              password: values.password,
-              mobile: `${values.country.callingCode}${values.phone}`,
-            };
-            signUp(payload);
-            console.log('VALUES => ', payload);
+            // const payload = {
+            //   username: values.fullName,
+            //   email: values.email,
+            //   password: values.password,
+            //   mobile: `${values.country.callingCode}${values.phone}`,
+            // };
+            // signUp(payload);
 
-            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-            //   from: 'signup',
-            // });
+            navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
+              from: 'signup',
+            });
           }}
         >
           {({
@@ -117,9 +120,13 @@ export const SignupScreen = () => {
                 />
                 <PhoneInput
                   defaultValue={values.phone}
-                  defaultCode="PK"
-                  onChangeText={n => {
-                    setFieldValue('phone', n);
+                  defaultCode="US"
+                  // onChangeText={n => {
+                  //   setFieldValue('phone', n);
+                  // }}
+                  value={values.phone}
+                  onChangeText={raw => {
+                    setFieldValue('phone', raw);
                   }}
                   containerStyle={styles.phoneInputContainer}
                   renderDropdownImage={

@@ -10,7 +10,7 @@ import {
 } from '../../../../components';
 import { Images } from '../../../../assets';
 import { navigationServices, SD } from '../../../../utils';
-import { AuthRoutes } from '../../../../constants';
+import { AuthRoutes, CallingRoutes } from '../../../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { validationSchema } from './validation.schema';
@@ -36,13 +36,14 @@ export const LoginScreen = () => {
       >
         <Formik
           initialValues={{ email: '', password: '' }}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
           onSubmit={values => {
-            const payload = {
-              email: values.email.trim().toLowerCase(),
-              password: values.password,
-            };
-            login(payload);
+            // const payload = {
+            //   email: values.email.trim().toLowerCase(),
+            //   password: values.password,
+            // };
+            // login(payload);
+            navigationServices.reset_0(CallingRoutes['HomeScreen'])
           }}
         >
           {({

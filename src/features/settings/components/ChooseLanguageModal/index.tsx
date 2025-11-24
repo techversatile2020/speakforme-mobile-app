@@ -12,13 +12,10 @@ import { Icons } from '../../../../assets';
 import { VoicesCard } from '../VoicesCard';
 
 export const ChooseLanguageModal = ({ visible, onClose }: any) => {
-  const [language, setLanguage] = useState(null);
-
   const languageOptions = [
     { label: 'English (United States)', value: 'en-US' },
-    { label: 'Spanish', value: 'es' },
-    { label: 'French', value: 'fr' },
   ];
+  const [language, setLanguage] = useState(languageOptions[0]);
   return (
     <CustomModal
       visible={visible}
@@ -32,13 +29,14 @@ export const ChooseLanguageModal = ({ visible, onClose }: any) => {
         onIconPress={onClose}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
-        <CustomDropdown
+        {/* <CustomDropdown
           label="Language"
           data={languageOptions}
           value={language}
           onChange={setLanguage}
           placeholder="Select language"
-        />
+        /> */}
+        <CustomInput value='English (United States)' editable={false}/>
         <PrimaryButton
           title={'Save'}
           customStyles={{

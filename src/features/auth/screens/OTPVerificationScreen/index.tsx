@@ -49,18 +49,16 @@ export const OTPVerificationScreen = ({ route }: any) => {
   };
 
   const handleConfirm = () => {
-    // if (from == 'signup')
-    //   return navigationServices.reset_0(AuthRoutes['LoginScreen']);
-    // navigationServices.navigate(AuthRoutes['ChangePasswordScreen']);
+    if (from == 'signup')
+      return navigationServices.reset_0(AuthRoutes['LoginScreen']);
+    navigationServices.navigate(AuthRoutes['ChangePasswordScreen']);
 
-    const payload = {
-      email: email,
-      otp: '000000',
-      otp_type: flowTypeUrl,
-    };
-    console.log('PAYLOAD => ', payload);
-
-    verifyAccount(payload);
+    // const payload = {
+    //   email: email,
+    //   otp: '000000',
+    //   otp_type: flowTypeUrl,
+    // };
+    // verifyAccount(payload);
   };
   return (
     <MainContainer>

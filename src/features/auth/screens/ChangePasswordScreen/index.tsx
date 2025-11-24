@@ -37,11 +37,11 @@ export const ChangePasswordScreen = ({ route }: any) => {
           initialValues={{ password: '', confirm_password: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            // navigationServices.reset_0(AuthRoutes['LoginScreen']);
-            resetPasswordMutate({
-              email,
-              password: values.password,
-            });
+            navigationServices.reset_0(AuthRoutes['LoginScreen']);
+            // resetPasswordMutate({
+            //   email,
+            //   password: values.password,
+            // });
           }}
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
@@ -65,7 +65,7 @@ export const ChangePasswordScreen = ({ route }: any) => {
                   hidepswdState={isPasswordVisible1}
                   onEyePress={() => setIsPasswordVisible1(!isPasswordVisible1)}
                   placeholder="New Password"
-                  isIcon
+                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}
@@ -88,7 +88,7 @@ export const ChangePasswordScreen = ({ route }: any) => {
                   hidepswdState={isPasswordVisible2}
                   onEyePress={() => setIsPasswordVisible2(!isPasswordVisible2)}
                   placeholder="Confirm Password"
-                  isIcon
+                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}
