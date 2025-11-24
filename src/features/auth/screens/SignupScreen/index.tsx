@@ -54,17 +54,17 @@ export const SignupScreen = () => {
           }}
           validationSchema={signupValidationSchema}
           onSubmit={values => {
-            // const payload = {
-            //   username: values.fullName,
-            //   email: values.email,
-            //   password: values.password,
-            //   mobile: `${values.country.callingCode}${values.phone}`,
-            // };
-            // signUp(payload);
+            const payload = {
+              username: values.fullName,
+              email: values.email,
+              password: values.password,
+              mobile: `${values.country.callingCode}${values.phone}`,
+            };
+            signUp(payload);
 
-            navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
-              from: 'signup',
-            });
+            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
+            //   from: 'signup',
+            // });
           }}
         >
           {({

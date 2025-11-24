@@ -37,11 +37,11 @@ export const ChangePasswordScreen = ({ route }: any) => {
           initialValues={{ password: '', confirm_password: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            navigationServices.reset_0(AuthRoutes['LoginScreen']);
-            // resetPasswordMutate({
-            //   email,
-            //   password: values.password,
-            // });
+            // navigationServices.reset_0(AuthRoutes['LoginScreen']);
+            resetPasswordMutate({
+              email,
+              password: values.password,
+            });
           }}
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (

@@ -38,12 +38,12 @@ export const LoginScreen = () => {
           initialValues={{ email: '', password: '' }}
           // validationSchema={validationSchema}
           onSubmit={values => {
-            // const payload = {
-            //   email: values.email.trim().toLowerCase(),
-            //   password: values.password,
-            // };
-            // login(payload);
-            navigationServices.reset_0(CallingRoutes['HomeScreen'])
+            const payload = {
+              email: values.email.trim().toLowerCase(),
+              password: values.password,
+            };
+            login(payload);
+            // navigationServices.reset_0(CallingRoutes['HomeScreen'])
           }}
         >
           {({

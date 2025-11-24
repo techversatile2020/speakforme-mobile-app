@@ -18,7 +18,7 @@ import { useForgotPassword } from '../../../../hooks';
 
 export const ForgotPasswordScreen = () => {
   const { AppTheme } = useTheme();
-  const { mutate: forgotPasswordMutate,isPending } = useForgotPassword();
+  const { mutate: forgotPasswordMutate, isPending } = useForgotPassword();
   return (
     <MainContainer>
       <Header />
@@ -32,10 +32,10 @@ export const ForgotPasswordScreen = () => {
           initialValues={{ email: '' }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
-            // forgotPasswordMutate({
-            //   email: values.email,
-            // });
+            // navigationServices.navigate(AuthRoutes['OTPVerificationScreen']);
+            forgotPasswordMutate({
+              email: values.email,
+            });
           }}
         >
           {({

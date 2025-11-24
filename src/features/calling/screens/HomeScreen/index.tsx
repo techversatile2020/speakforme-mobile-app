@@ -14,10 +14,12 @@ import { View } from 'react-native';
 import { CallingRoutes, SettingRoutes } from '../../../../constants';
 import { ContactPicker } from '../../components';
 import { useSelector } from 'react-redux';
+import { useMakeCall } from '../../../../hooks';
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
+  const { data, isError, error, isPending, mutate: makeCall } = useMakeCall();
 
   const handleGoToSettings = () =>
     navigationServices.navigate(SettingRoutes['SettingScreen']);
@@ -66,7 +68,12 @@ export const HomeScreen = () => {
         <Formik
           initialValues={{ recipientsNumber: '', yourNumber: '' }}
           onSubmit={values => {
-            navigationServices.navigate(CallingRoutes['CallScreen']);
+            // navigationServices.navigate(CallingRoutes['CallScreen']);
+            console.log('FORM VALUES => ', values);
+            makeCall({
+              selfNumber: values.yourNumber,
+              toNumber: values.recipientsNumber,
+            });
           }}
         >
           {({

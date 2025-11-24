@@ -1,15 +1,13 @@
 import axios from 'axios';
-import {store} from '../redux';
-import {BASE_URL, BASE_PATH,API_TIMEOUT} from "@env"
+import { store } from '../redux';
+import { BASE_URL, BASE_PATH, API_TIMEOUT, LOCAL_URL } from '@env';
 import { setToken } from '../redux/authSlices';
 
-
 const customAxios = (contentType = 'application/json') => {
-  console.log(`${BASE_URL}${BASE_PATH}`);
-  
   const instance = axios.create({
-    baseURL: `${BASE_URL}${BASE_PATH}`,
-    headers: {'Content-Type': contentType},
+    // baseURL: LOCAL_URL,
+    baseURL: `${BASE_URL}`,
+    headers: { 'Content-Type': contentType },
     timeout: Number(API_TIMEOUT),
   });
 
@@ -48,11 +46,11 @@ const customAxios = (contentType = 'application/json') => {
         error?.response?.error ||
         'Something went wrong. Please try again later.';
 
-      console.log(error.response)
-      console.log(error.response?.data)
+      console.log(error.response);
+      console.log(error.response?.data);
 
       if (error.response) {
-        const {status} = error.response;
+        const { status } = error.response;
 
         if (status === 401) {
           console.log('Unauthorized. Logging out...');

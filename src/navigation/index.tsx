@@ -15,7 +15,7 @@ export const AppStack = () => {
   const { token } = useSelector((state: any) => state.auth);
 
   const buildScreens = () => {
-    return [...OnboardingStacks, ...AuthStack, ...CallingStack, ...SettingsStack];
+    // return [...OnboardingStacks, ...AuthStack, ...CallingStack, ...SettingsStack];
     if (!onBoardingCompleted && !token) {
       return [...OnboardingStacks, ...AuthStack];
     }
@@ -31,7 +31,7 @@ export const AppStack = () => {
       return [...CallingStack, ...SettingsStack];
     }
 
-    return [...OnboardingStacks, ...AuthStack, CallingStack, SettingsStack];
+    return [];
   };
 
   const screens = buildScreens();
