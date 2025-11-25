@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 import { CustomModal, PrimaryButton, Text } from '../../../../components';
 import { ModalHeader } from '../ModalHeader';
 import { useTheme } from '../../../../theme';
-import { SD } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../../../redux/authSlices';
+import { OnBoardingRoutes } from '../../../../constants';
 
 export const LogoutModal = ({ visible, onClose }: any) => {
   const { AppTheme } = useTheme();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(setToken(null));
+    // dispatch(setToken(null));
+    navigationServices.reset_0(OnBoardingRoutes['getStartedScreen']);
   };
   return (
     <CustomModal

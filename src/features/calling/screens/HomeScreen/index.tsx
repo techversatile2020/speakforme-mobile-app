@@ -25,30 +25,20 @@ export const HomeScreen = () => {
     navigationServices.navigate(SettingRoutes['SettingScreen']);
 
   const formatPhoneNumber = (text: string) => {
-    // remove all non-digits
-    const cleaned = text.replace(/\D/g, '');
+    // Remove everything except digits
+    const digits = text.replace(/\D/g, '');
 
-    // allow empty
-    if (cleaned.length === 0) return '';
+    // Ensure we only take 10 digits max
+    const limited = digits.slice(0, 10);
 
-    // US/Canada formatting with +1
-    if (cleaned.length <= 1) {
-      return `+${cleaned}`;
-    }
-    if (cleaned.length <= 4) {
-      return `+${cleaned[0]} (${cleaned.slice(1)}`;
-    }
-    if (cleaned.length <= 7) {
-      return `+${cleaned[0]} (${cleaned.slice(1, 4)}) ${cleaned.slice(4)}`;
-    }
-    if (cleaned.length <= 11) {
-      return `+${cleaned[0]} (${cleaned.slice(1, 4)}) ${cleaned.slice(
-        4,
-        7,
-      )} ${cleaned.slice(7)}`;
-    }
-
-    return text; // fallback
+    // Format based on length
+    if (limited.length === 0) return '';
+    if (limited.length <= 3) return `(${limited}`;
+    if (limited.length <= 6)
+      return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
+    return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(
+      6,
+    )}`;
   };
   return (
     <MainContainer>
@@ -91,13 +81,14 @@ export const HomeScreen = () => {
                   Type Recipient’s Number
                 </Text>
                 <CustomInput
+                  leftPrefix="+1"
                   autoCapitalize="none"
                   value={values.recipientsNumber}
                   // onChangeText={handleChange('recipientsNumber')}
                   onChangeText={text => {
                     setFieldValue('recipientsNumber', formatPhoneNumber(text));
                   }}
-                  placeholder="+1 (919) 555 8247"
+                  placeholder="(919) 555 8247"
                   isIcon
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="next"
@@ -120,12 +111,13 @@ export const HomeScreen = () => {
                   Your Number
                 </Text>
                 <CustomInput
+                  leftPrefix="+1"
                   value={values.yourNumber}
                   // onChangeText={handleChange('yourNumber')}
                   onChangeText={text =>
                     setFieldValue('yourNumber', formatPhoneNumber(text))
                   }
-                  placeholder="+1 (919) 555 8247"
+                  placeholder="(919) 555 8247"
                   customStyle={{ fontSize: SD.customFontSize(14) }}
                   returnKeyType="done"
                   error={
@@ -141,9 +133,21 @@ export const HomeScreen = () => {
               <ContactPicker
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
-                onSelect={contact =>
-                  setFieldValue('recipientsNumber', contact.phoneNumber)
-                }
+                onSelect={contact => {
+                  // setFieldValue('recipientsNumber', contact.phoneNumber)
+                  let num = contact.phoneNumber;
+
+                  // Remove all spaces, hyphens, etc.
+                  // num = num.replace(/\s|-/g, '');
+
+                  // If number starts with +something, remove it
+                  if (num.startsWith('+')) {
+                    // remove +countryCode (keep last 10 digits typically)
+                    num = num.replace(/^\+\d+/, '');
+                  }
+
+                  setFieldValue('recipientsNumber', num);
+                }}
               />
             </View>
           )}
