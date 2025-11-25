@@ -10,43 +10,40 @@ import {
 } from '../../api';
 import { store } from '../../redux';
 import { setToken, setUser } from '../../redux/authSlices';
-import { navigationServices } from '../../utils';
+import { navigationServices, toast } from '../../utils';
 import { AuthRoutes } from '../../constants';
+
+// 🔥 GLOBAL ERROR EXTRACTOR
+const extractError = (err: any) =>
+  err?.response?.data?.error_message || err?.message || 'Something went wrong';
 
 export const useLogin = () => {
   return useMutation({
     mutationFn: login,
 
     onSuccess: async res => {
-      console.log('RES FROM USE LOGIN => ',res);
-      
+      console.log('useLogin onSuccess -> ', res);
+
+      const successMessage =
+        res?.data?.message || res?.message || 'Login successful';
+
+      toast.success(successMessage);
+
       const token = res?.data?.access_token;
       if (token) {
         store.dispatch(setToken(token));
-        // Fetch and store user
         try {
           const user = await getMe();
           store.dispatch(setUser(user.data));
         } catch (err) {
-          return console.log('useLogin: ', err);
+          console.log('getMe ERROR => ', err);
         }
       }
-      // else {
-      //   toast.fail('Token not found in response');
-      // }
     },
-    onError: (err: any) => {
 
-      let msg = 'Login failed. Please try again.';
-      if (err?.response?.data) {
-        if (typeof err.response.data === 'string') {
-          msg = err.response.data;
-        } else {
-          msg = err.response.data.error_message;
-        }
-      } else if (err?.message) {
-        msg = err.message;
-      }
+    onError: (err: any) => {
+      toast.fail(extractError(err));
+      console.log('ERROR =>', err?.response?.data);
     },
   });
 };
@@ -54,15 +51,19 @@ export const useLogin = () => {
 export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
+
     onSuccess: (res, vars) => {
+      toast.success(res?.data?.message || 'Signup successful');
+
       navigationServices.navigate(AuthRoutes.OTPVerificationScreen, {
         email: vars.email,
         from: 'signup',
       });
     },
+
     onError: (err: any) => {
-      const msg = err?.response?.data?.error_message;
-      console.log('ERROR => ', err);
+      toast.fail(extractError(err));
+      console.log('Signup ERROR => ', err?.response?.data);
     },
   });
 };
@@ -70,14 +71,18 @@ export const useSignup = () => {
 export const useForgotPassword = () => {
   return useMutation({
     mutationFn: forgotPassword,
+
     onSuccess: (res, vars) => {
+      toast.success(res?.data?.message || 'OTP sent successfully');
+
       navigationServices.navigate(AuthRoutes.OTPVerificationScreen, {
         email: vars.email,
         from: 'forgot',
       });
     },
+
     onError: (err: any) => {
-      const msg = err?.response?.data?.error_message;
+      toast.fail(extractError(err));
     },
   });
 };
@@ -85,12 +90,15 @@ export const useForgotPassword = () => {
 export const useVerifyAccount = (callback?: any) => {
   return useMutation({
     mutationFn: verifyAccount,
+
     onSuccess: res => {
-      console.log('useVerifyAccount onSuccess ->  ', res);
+      toast.success(res?.data?.message || 'Account verified');
       callback?.();
     },
+
     onError: (err: any) => {
-      console.log('useVerifyAccount onError ->  ', err);
+      toast.fail(extractError(err));
+      console.log('VerifyAccount ERROR => ', err);
     },
   });
 };
@@ -98,10 +106,13 @@ export const useVerifyAccount = (callback?: any) => {
 export const useVerifyPwdOtp = () => {
   return useMutation({
     mutationFn: verifyAccount,
-    onSuccess: res => {},
+
+    onSuccess: res => {
+      toast.success(res?.data?.message || 'OTP verified');
+    },
 
     onError: (err: any) => {
-      const msg = err?.response?.data?.error_message;
+      toast.fail(extractError(err));
     },
   });
 };
@@ -109,11 +120,14 @@ export const useVerifyPwdOtp = () => {
 export const useResetPassword = () => {
   return useMutation({
     mutationFn: resetPassword,
+
     onSuccess: res => {
+      toast.success(res?.data?.message || 'Password reset successfully');
       navigationServices.reset_0(AuthRoutes.LoginScreen);
     },
+
     onError: (err: any) => {
-      const msg = err?.response?.data?.error_message;
+      toast.fail(extractError(err));
     },
   });
 };
@@ -128,11 +142,15 @@ export const useGetMe = () => {
 export const useResendOtp = () => {
   return useMutation({
     mutationFn: resentOTP,
+
     onSuccess: (res: any) => {
-      console.log('✅ OTP resent response:', res);
+      toast.success(res?.data?.message || 'OTP resent successfully');
+      console.log('OTP resent:', res);
     },
+
     onError: (err: any) => {
-      console.log('useResendOtp ERROR => ', err);
+      toast.fail(extractError(err));
+      // console.log('Resend OTP ERROR => ', err);
     },
   });
 };

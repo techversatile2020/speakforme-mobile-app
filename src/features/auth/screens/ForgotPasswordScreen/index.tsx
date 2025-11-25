@@ -18,7 +18,7 @@ import { useForgotPassword } from '../../../../hooks';
 
 export const ForgotPasswordScreen = () => {
   const { AppTheme } = useTheme();
-  const { mutate: forgotPasswordMutate, isPending } = useForgotPassword();
+  const { mutate: forgotPasswordMutate,isPending } = useForgotPassword();
   return (
     <MainContainer>
       <Header />

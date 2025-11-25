@@ -10,17 +10,21 @@ import {
 } from '../../../../components';
 import { Images } from '../../../../assets';
 import { navigationServices, SD } from '../../../../utils';
-import { AuthRoutes, CallingRoutes } from '../../../../constants';
+import { AuthRoutes } from '../../../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { validationSchema } from './validation.schema';
 import { TextInput, View } from 'react-native';
 import { CardContainer } from '../../../../components/card-container';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../../../redux/authSlices';
+import { store } from '../../../../redux';
 import { useLogin } from '../../../../hooks';
 
 export const LoginScreen = () => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
+  const dispatch = useDispatch();
   const passwordRef = useRef<TextInput>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -36,14 +40,13 @@ export const LoginScreen = () => {
       >
         <Formik
           initialValues={{ email: '', password: '' }}
-          // validationSchema={validationSchema}
+          validationSchema={validationSchema}
           onSubmit={values => {
             const payload = {
               email: values.email.trim().toLowerCase(),
               password: values.password,
             };
             login(payload);
-            // navigationServices.reset_0(CallingRoutes['HomeScreen'])
           }}
         >
           {({

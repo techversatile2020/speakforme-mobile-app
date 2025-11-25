@@ -6,7 +6,7 @@ const enum Urls {
   signup = 'auth/signup',
   verifyAccount = 'auth/verify/otp',
   getMe = 'user/get',
-   changePassword = '/auth/change/password',
+  changePassword = '/auth/change/password',
 }
 
 export default Urls;

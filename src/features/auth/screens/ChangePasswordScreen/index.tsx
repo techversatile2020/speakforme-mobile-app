@@ -65,7 +65,6 @@ export const ChangePasswordScreen = ({ route }: any) => {
                   hidepswdState={isPasswordVisible1}
                   onEyePress={() => setIsPasswordVisible1(!isPasswordVisible1)}
                   placeholder="New Password"
-                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}
@@ -88,7 +87,6 @@ export const ChangePasswordScreen = ({ route }: any) => {
                   hidepswdState={isPasswordVisible2}
                   onEyePress={() => setIsPasswordVisible2(!isPasswordVisible2)}
                   placeholder="Confirm Password"
-                  // isIcon
                   customStyle={{
                     fontSize: SD.customFontSize(14),
                   }}

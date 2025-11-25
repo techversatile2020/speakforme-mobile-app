@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { store } from '../redux';
-import { BASE_URL, BASE_PATH, API_TIMEOUT, LOCAL_URL } from '@env';
+import { BASE_URL, BASE_PATH, API_TIMEOUT } from '@env';
 import { setToken } from '../redux/authSlices';
 
 const customAxios = (contentType = 'application/json') => {
+  console.log(`${BASE_URL}${BASE_PATH}`);
+
   const instance = axios.create({
-    // baseURL: LOCAL_URL,
     baseURL: `${BASE_URL}`,
+    // baseURL: `${BASE_URL}${BASE_PATH}`,
     headers: { 'Content-Type': contentType },
     timeout: Number(API_TIMEOUT),
   });

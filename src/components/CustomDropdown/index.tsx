@@ -45,7 +45,6 @@ export const CustomDropdown = ({
           color: AppTheme.textSecondary,
           fontFamily: Fonts['regular'],
         }}
-      
       />
     </View>
   );

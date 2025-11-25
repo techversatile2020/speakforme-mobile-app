@@ -15,7 +15,6 @@ export const AppStack = () => {
   const { token } = useSelector((state: any) => state.auth);
 
   const buildScreens = () => {
-    // return [...OnboardingStacks, ...AuthStack, ...CallingStack, ...SettingsStack];
     if (!onBoardingCompleted && !token) {
       return [...OnboardingStacks, ...AuthStack];
     }
@@ -24,7 +23,7 @@ export const AppStack = () => {
       const getStarted = OnboardingStacks.find(
         s => s.name === OnBoardingRoutes['getStartedScreen'],
       );
-      return [getStarted, ...AuthStack];
+      return [...AuthStack];
     }
 
     if (onBoardingCompleted && token) {

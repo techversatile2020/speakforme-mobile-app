@@ -5,10 +5,10 @@ import { SD } from '../../../../utils';
 import { Icons } from '../../../../assets';
 import { useTheme } from '../../../../theme';
 
-export const ModalHeader = ({ title, onIconPress, subTitle,containerStyles }: any) => {
+export const ModalHeader = ({ title, onIconPress, subTitle }: any) => {
   const { AppTheme } = useTheme();
   return (
-    <View style={[styles.container,containerStyles]}>
+    <View style={styles.container}>
       <View style={styles.leftSideView}>
         {title && (
           <Text bold size={26}>

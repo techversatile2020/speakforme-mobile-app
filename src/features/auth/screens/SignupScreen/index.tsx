@@ -9,11 +9,7 @@ import {
   Text,
 } from '../../../../components';
 import { Icons, Images } from '../../../../assets';
-import {
-  formatInternationalPhone,
-  navigationServices,
-  SD,
-} from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { TextInput, View } from 'react-native';
@@ -48,8 +44,8 @@ export const SignupScreen = () => {
             phone: '',
             password: '',
             country: {
-              callingCode: '+1',
-              letterCode: 'US',
+              callingCode: '+92',
+              letterCode: 'PK',
             },
           }}
           validationSchema={signupValidationSchema}
@@ -61,6 +57,7 @@ export const SignupScreen = () => {
               mobile: `${values.country.callingCode}${values.phone}`,
             };
             signUp(payload);
+            console.log('VALUES => ', payload);
 
             // navigationServices.navigate(AuthRoutes['OTPVerificationScreen'], {
             //   from: 'signup',
@@ -120,13 +117,9 @@ export const SignupScreen = () => {
                 />
                 <PhoneInput
                   defaultValue={values.phone}
-                  defaultCode="US"
-                  // onChangeText={n => {
-                  //   setFieldValue('phone', n);
-                  // }}
-                  value={values.phone}
-                  onChangeText={raw => {
-                    setFieldValue('phone', raw);
+                  defaultCode="PK"
+                  onChangeText={n => {
+                    setFieldValue('phone', n);
                   }}
                   containerStyle={styles.phoneInputContainer}
                   renderDropdownImage={
@@ -141,11 +134,6 @@ export const SignupScreen = () => {
                       letterCode: e?.cca2,
                     };
                     setFieldValue('country', country);
-                  }}
-                  // disableArrowIcon
-                  textInputProps={{
-                    maxLength: 10,
-                    placeholder: '9295558247',
                   }}
                 />
                 <CustomInput
@@ -179,7 +167,7 @@ export const SignupScreen = () => {
                   </Text>
                   <CardContainer
                     onPress={() =>
-                      navigationServices.navigate(AuthRoutes['LoginScreen'])
+                      navigationServices.reset_0(AuthRoutes['LoginScreen'])
                     }
                   >
                     <Text size={11} regular color={AppTheme.primary}>

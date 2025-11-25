@@ -98,9 +98,6 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
-        <Text bold size={26} bottomSpacing={10}>
-          Contacts
-        </Text>
         {loading ? (
           <Text>Loading Contacts...</Text>
         ) : contacts.length === 0 ? (
@@ -112,14 +109,23 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
             renderItem={renderItem}
           />
         )}
-        <PrimaryButton title={'Close'} onPress={onClose} />
+        <PrimaryButton
+          customStyles={{ marginBottom: SD.hp(30) }}
+          title={'Close'}
+          onPress={onClose}
+        />
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, paddingTop: SD.hp(40) },
+  container: {
+    flex: 1,
+    borderWidth: 1,
+    paddingTop: SD.hp(60),
+    paddingHorizontal: SD.wp(20),
+  },
   contactItem: {
     paddingVertical: 10,
     borderBottomWidth: 1,

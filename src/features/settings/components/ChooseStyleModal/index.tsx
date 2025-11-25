@@ -39,13 +39,12 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="100%"
+      modalHeight="80%"
     >
       <ModalHeader
         title="Choose a Style"
         subTitle="Pick a speaking style that feels right."
         onIconPress={onClose}
-        containerStyles={{ paddingTop: SD.hp(40) }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <FlatList

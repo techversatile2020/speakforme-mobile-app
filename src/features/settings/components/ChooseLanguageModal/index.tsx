@@ -12,32 +12,33 @@ import { Icons } from '../../../../assets';
 import { VoicesCard } from '../VoicesCard';
 
 export const ChooseLanguageModal = ({ visible, onClose }: any) => {
+  const [language, setLanguage] = useState(null);
+
   const languageOptions = [
     { label: 'English (United States)', value: 'en-US' },
+    { label: 'Spanish', value: 'es' },
+    { label: 'French', value: 'fr' },
   ];
-  const [language, setLanguage] = useState(languageOptions[0]);
   return (
     <CustomModal
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="100%"
+      modalHeight="80%"
     >
       <ModalHeader
         title="Choose a Language"
         subTitle="Pick your language to start communicating."
         onIconPress={onClose}
-        containerStyles={{ paddingTop: SD.hp(40) }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
-        {/* <CustomDropdown
+        <CustomDropdown
           label="Language"
           data={languageOptions}
           value={language}
           onChange={setLanguage}
           placeholder="Select language"
-        /> */}
-        <CustomInput value="English (United States)" editable={false} />
+        />
         <PrimaryButton
           title={'Save'}
           customStyles={{

@@ -1,9 +1,4 @@
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '../../../../theme';
 import { AudioPlayer, Text } from '../../../../components';
@@ -30,15 +25,10 @@ export const VoicesCard = ({
   const { AppTheme } = useTheme();
   const { title, subTitle, id, audio } = data || {};
   const [isLoading, setIsLoading] = useState(false);
-  const [shwoAudioPlayer, setShowAudioPlayer] = useState(false);
 
   useEffect(() => {
-    if (voice) {
-      setTimeout(() => {
-        setShowAudioPlayer(true);
-      }, 500);
-    }
-  }, [voice]);
+    console.log('IsLoading -> ', isLoading);
+  }, [isLoading]);
 
   return (
     <TouchableOpacity
@@ -64,27 +54,14 @@ export const VoicesCard = ({
           ]}
         />
       </View>
-      {voice && !shwoAudioPlayer ? (
-        <ActivityIndicator size="small" color={AppTheme.primary} />
-      ) : (
-        voice &&
-        shwoAudioPlayer && (
-          <AudioPlayer
-            url={audio}
-            id={id}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-        )
-      )}
-      {/* {(voice && shwoAudioPlayer) && (
+      {voice && (
         <AudioPlayer
           url={audio}
           id={id}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
         />
-      )} */}
+      )}
     </TouchableOpacity>
   );
 };
