@@ -18,7 +18,7 @@ export const EditProfileModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="93%"
     >
       <ModalHeader title="Edit Profile" onIconPress={onClose} />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>

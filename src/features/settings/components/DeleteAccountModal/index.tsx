@@ -11,12 +11,12 @@ export const DeleteAccountModal = ({ visible, onClose }: any) => {
     <CustomModal
       visible={visible}
       onClose={onClose}
-      //   type="bottomsheet"
+      // type="bottomsheet"
       modalHeight="80%"
     >
       <View style={{ flex: 1 }}>
         <Text bold size={20} centered>
-         Are you sure you want to delete your account?
+          Are you sure you want to delete your account?
         </Text>
         <Text
           bold

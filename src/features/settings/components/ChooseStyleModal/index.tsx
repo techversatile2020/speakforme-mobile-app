@@ -39,7 +39,7 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="100%"
+      modalHeight="93%"
     >
       <ModalHeader
         title="Choose a Style"

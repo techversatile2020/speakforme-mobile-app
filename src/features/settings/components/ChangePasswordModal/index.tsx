@@ -29,7 +29,7 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="93%"
     >
       <ModalHeader title="Change Password" onIconPress={onClose} />
       <View style={{ flex: 1, marginTop: SD.hp(20) }}>
