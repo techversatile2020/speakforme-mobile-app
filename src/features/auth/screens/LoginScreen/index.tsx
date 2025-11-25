@@ -43,7 +43,7 @@ export const LoginScreen = () => {
             //   password: values.password,
             // };
             // login(payload);
-            navigationServices.reset_0(CallingRoutes['HomeScreen'])
+            navigationServices.reset_0(CallingRoutes['HomeScreen']);
           }}
         >
           {({

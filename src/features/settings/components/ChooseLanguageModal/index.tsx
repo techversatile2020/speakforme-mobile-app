@@ -21,12 +21,13 @@ export const ChooseLanguageModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="100%"
     >
       <ModalHeader
         title="Choose a Language"
         subTitle="Pick your language to start communicating."
         onIconPress={onClose}
+        containerStyles={{ paddingTop: SD.hp(40) }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         {/* <CustomDropdown
@@ -36,7 +37,7 @@ export const ChooseLanguageModal = ({ visible, onClose }: any) => {
           onChange={setLanguage}
           placeholder="Select language"
         /> */}
-        <CustomInput value='English (United States)' editable={false}/>
+        <CustomInput value="English (United States)" editable={false} />
         <PrimaryButton
           title={'Save'}
           customStyles={{

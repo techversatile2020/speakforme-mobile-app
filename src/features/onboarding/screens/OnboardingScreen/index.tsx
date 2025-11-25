@@ -172,9 +172,8 @@
 //   },
 // });
 
-
 import { MainContainer, PrimaryButton, Text } from '../../../../components';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Image,
@@ -221,13 +220,49 @@ export const OnboardingScreen = () => {
   const { AppTheme } = useTheme();
   const dispatch = useDispatch();
   const [stepIndex, setStepIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Animation values
   const translateX = useRef(new Animated.Value(0)).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
+  // add these refs near top of component
+  const stepIndexRef = useRef(stepIndex);
+  const isAnimatingRef = useRef(isAnimating);
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    // keep refs in sync with state
+    stepIndexRef.current = stepIndex;
+  }, [stepIndex]);
+
+  useEffect(() => {
+    isAnimatingRef.current = isAnimating;
+  }, [isAnimating]);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   // Smooth animation between screens
-  const animateCard = (direction:any) => {
+  const animateCard = (direction: any) => {
+    // prevent double calls
+    if (isAnimatingRef.current) return;
+
+    const currentIndex = stepIndexRef.current;
+    const nextIndex = currentIndex + direction;
+
+    // hard guard
+    if (nextIndex < 0 || nextIndex >= onboardingData.length) {
+      return;
+    }
+
+    // set both state + ref together
+    setIsAnimating(true);
+    isAnimatingRef.current = true;
+
     Animated.parallel([
       Animated.timing(translateX, {
         toValue: -direction * SD.wp(100),
@@ -240,10 +275,19 @@ export const OnboardingScreen = () => {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      // Update card
-      setStepIndex(prev => prev + direction);
+      // IMPORTANT: use functional setState to avoid stale closures
+      setStepIndex(prev => {
+        const computed = prev + direction;
+        // extra guard
+        if (computed < 0 || computed >= onboardingData.length) {
+          return prev;
+        }
+        // sync ref
+        stepIndexRef.current = computed;
+        return computed;
+      });
 
-      // Reset to opposite side before sliding in
+      // reset animated values off-screen then animate in
       translateX.setValue(direction * SD.wp(100));
       opacity.setValue(0);
 
@@ -258,16 +302,20 @@ export const OnboardingScreen = () => {
           duration: 250,
           useNativeDriver: true,
         }),
-      ]).start();
+      ]).start(() => {
+        if (!isMounted.current) return; // avoid updating unmounted component
+        setIsAnimating(false);
+        isAnimatingRef.current = false;
+      });
     });
   };
 
   const goToNext = () => {
+    if (isAnimating) return;
     if (stepIndex < onboardingData.length - 1) {
       animateCard(1);
     } else {
-      // dispatch(setOnBoardingCompleted(true));
-      navigationServices.navigate(OnBoardingRoutes['getStartedScreen'])
+      navigationServices.navigate(OnBoardingRoutes['getStartedScreen']);
     }
   };
 
@@ -278,22 +326,24 @@ export const OnboardingScreen = () => {
   };
 
   // Swipe Handler
-  const panResponder = useMemo(
-    () =>
-      PanResponder.create({
-        onMoveShouldSetPanResponder: (_, gestureState) =>
-          Math.abs(gestureState.dx) > 20,
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) => Math.abs(gesture.dx) > 20,
+      onPanResponderRelease: (_, gesture) => {
+        // Use refs here to avoid stale values
+        const currIndex = stepIndexRef.current;
+        const animating = isAnimatingRef.current;
 
-        onPanResponderRelease: (_, gesture) => {
-          if (gesture.dx < -50 && stepIndex < onboardingData.length - 1) {
-            animateCard(1);
-          } else if (gesture.dx > 50 && stepIndex > 0) {
-            animateCard(-1);
-          }
-        },
-      }),
-    [stepIndex],
-  );
+        if (animating) return;
+
+        if (gesture.dx < -50 && currIndex < onboardingData.length - 1) {
+          animateCard(1);
+        } else if (gesture.dx > 50 && currIndex > 0) {
+          animateCard(-1);
+        }
+      },
+    }),
+  ).current;
 
   const current = onboardingData[stepIndex];
 
@@ -345,7 +395,11 @@ export const OnboardingScreen = () => {
           ))}
         </View>
 
-        <Pressable onPress={() => dispatch(setOnBoardingCompleted(true))}>
+        <Pressable
+          onPress={() =>
+            navigationServices.navigate(OnBoardingRoutes['getStartedScreen'])
+          }
+        >
           <Text style={styles.skipButton}>Skip</Text>
         </Pressable>
       </View>

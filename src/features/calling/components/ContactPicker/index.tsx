@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import { PERMISSIONS } from 'react-native-permissions';
-import { usePermission } from '../../../../utils';
+import { SD, usePermission } from '../../../../utils';
 import { PrimaryButton, Text } from '../../../../components';
 
 interface ContactPickerProps {
@@ -98,6 +98,9 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
+        <Text bold size={26} bottomSpacing={10}>
+          Contacts
+        </Text>
         {loading ? (
           <Text>Loading Contacts...</Text>
         ) : contacts.length === 0 ? (
@@ -116,7 +119,7 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: { flex: 1, padding: 20, paddingTop: SD.hp(40) },
   contactItem: {
     paddingVertical: 10,
     borderBottomWidth: 1,
