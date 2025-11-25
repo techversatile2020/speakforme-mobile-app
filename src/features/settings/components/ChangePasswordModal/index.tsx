@@ -2,19 +2,17 @@ import React, { useRef, useState } from 'react';
 import { useTheme } from '../../../../theme';
 import {
   CustomInput,
-  Image,
   PrimaryButton,
   Text,
   CustomModal,
 } from '../../../../components';
-import { Images } from '../../../../assets';
-import { navigationServices, SD } from '../../../../utils';
+import { SD, toast } from '../../../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { AuthRoutes } from '../../../../constants';
-
 import { ModalHeader } from '../ModalHeader';
+import { useChangePassword } from '../../../../hooks';
+import { changePasswordValidationSchema } from './validation.schema';
 
 export const ChangePasswordModal = ({ visible, onClose }: any) => {
   const { AppTheme } = useTheme();
@@ -24,12 +22,16 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
   const [isPasswordVisible3, setisPasswordVisible3] = useState(false);
   const confirmPasswordRef = useRef<TextInput>(null);
 
+  const { mutate: changePasswordMutation, isPending } =
+    useChangePassword(onClose);
+
   return (
     <CustomModal
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="87%"
+      isOverlay={false}
     >
       <ModalHeader title="Change Password" onIconPress={onClose} />
       <View style={{ flex: 1, marginTop: SD.hp(20) }}>
@@ -45,89 +47,108 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
               password: '',
               confirm_password: '',
             }}
-            //   validationSchema={validationSchema}
+            validationSchema={changePasswordValidationSchema}
             onSubmit={values => {
-              navigationServices.reset_0(AuthRoutes['LoginScreen']);
+              // navigationServices.reset_0(AuthRoutes['LoginScreen']);
+              const payload = {
+                old_password: values.old_password,
+                password: values.password,
+              };
+
+              changePasswordMutation(payload);
             }}
           >
             {({ handleChange, handleSubmit, values, errors, touched }) => (
               <View style={{ flex: 1 }}>
-                <Text
-                  color={AppTheme.textSecondary}
-                  leftSpacing={5}
-                  regular
-                  size={14}
-                >
-                  Update your password for better security.
-                </Text>
-                <CustomInput
-                  value={values.old_password}
-                  onChangeText={handleChange('old_password')}
-                  eye
-                  secureTextEntry={!isPasswordVisible1}
-                  hidepswdState={isPasswordVisible1}
-                  onEyePress={() => setIsPasswordVisible1(!isPasswordVisible1)}
-                  placeholder="Old Password"
-                  // isIcon
-                  customStyle={{
-                    fontSize: SD.customFontSize(14),
-                  }}
-                  error={
-                    touched.password && errors.password
-                      ? errors.password
-                      : undefined
-                  }
-                  returnKeyType="next"
-                  onSubmitEditing={() => confirmPasswordRef.current?.focus()}
-                  blurOnSubmit={false}
-                />
-                <CustomInput
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  eye
-                  secureTextEntry={!isPasswordVisible2}
-                  hidepswdState={isPasswordVisible2}
-                  onEyePress={() => setIsPasswordVisible2(!isPasswordVisible2)}
-                  placeholder="New Password"
-                  // isIcon
-                  customStyle={{
-                    fontSize: SD.customFontSize(14),
-                  }}
-                  error={
-                    touched.password && errors.password
-                      ? errors.password
-                      : undefined
-                  }
-                  returnKeyType="next"
-                  onSubmitEditing={() => confirmPasswordRef.current?.focus()}
-                  blurOnSubmit={false}
-                />
-                <CustomInput
-                  inputRef={confirmPasswordRef}
-                  returnKeyType="done"
-                  value={values.confirm_password}
-                  onChangeText={handleChange('confirm_password')}
-                  eye
-                  secureTextEntry={!isPasswordVisible3}
-                  hidepswdState={isPasswordVisible3}
-                  onEyePress={() => setisPasswordVisible3(!isPasswordVisible3)}
-                  placeholder="Confirm Password"
-                  // isIcon
-                  customStyle={{
-                    fontSize: SD.customFontSize(14),
-                  }}
-                  error={
-                    touched.confirm_password && errors.confirm_password
-                      ? errors.confirm_password
-                      : undefined
-                  }
+                <View style={{ flex: 1 }}>
+                  <Text
+                    color={AppTheme.textSecondary}
+                    leftSpacing={5}
+                    regular
+                    size={14}
+                  >
+                    Update your password for better security.
+                  </Text>
+                  <CustomInput
+                    value={values.old_password}
+                    onChangeText={handleChange('old_password')}
+                    eye
+                    secureTextEntry={!isPasswordVisible1}
+                    hidepswdState={isPasswordVisible1}
+                    onEyePress={() =>
+                      setIsPasswordVisible1(!isPasswordVisible1)
+                    }
+                    placeholder="Old Password"
+                    // isIcon
+                    customStyle={{
+                      fontSize: SD.customFontSize(14),
+                    }}
+                    error={
+                      touched.old_password && errors.old_password
+                        ? errors.old_password
+                        : undefined
+                    }
+                    returnKeyType="next"
+                    onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+                    blurOnSubmit={false}
+                  />
+                  <CustomInput
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    eye
+                    secureTextEntry={!isPasswordVisible2}
+                    hidepswdState={isPasswordVisible2}
+                    onEyePress={() =>
+                      setIsPasswordVisible2(!isPasswordVisible2)
+                    }
+                    placeholder="New Password"
+                    // isIcon
+                    customStyle={{
+                      fontSize: SD.customFontSize(14),
+                    }}
+                    error={
+                      touched.password && errors.password
+                        ? errors.password
+                        : undefined
+                    }
+                    returnKeyType="next"
+                    onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+                    blurOnSubmit={false}
+                  />
+                  <CustomInput
+                    inputRef={confirmPasswordRef}
+                    returnKeyType="done"
+                    value={values.confirm_password}
+                    onChangeText={handleChange('confirm_password')}
+                    eye
+                    secureTextEntry={!isPasswordVisible3}
+                    hidepswdState={isPasswordVisible3}
+                    onEyePress={() =>
+                      setisPasswordVisible3(!isPasswordVisible3)
+                    }
+                    placeholder="Confirm Password"
+                    // isIcon
+                    customStyle={{
+                      fontSize: SD.customFontSize(14),
+                    }}
+                    error={
+                      touched.confirm_password && errors.confirm_password
+                        ? errors.confirm_password
+                        : undefined
+                    }
+                  />
+                </View>
+                <PrimaryButton
+                  title={'Save'}
+                  customStyles={{ bottom: SD.hp(30) }}
+                  isLoading={isPending}
+                  onPress={handleSubmit}
                 />
               </View>
             )}
           </Formik>
         </KeyboardAwareScrollView>
       </View>
-      <PrimaryButton title={'Save'} customStyles={{ bottom: SD.hp(30) }} />
     </CustomModal>
   );
 };

@@ -183,10 +183,11 @@ import {
   View,
 } from 'react-native';
 import { useTheme } from '../../../../theme';
-import { SD } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { Images } from '../../../../assets';
 import { useDispatch } from 'react-redux';
 import { setOnBoardingCompleted } from '../../../../redux';
+import { OnBoardingRoutes } from '../../../../constants';
 
 const onboardingData = [
   {
@@ -314,7 +315,7 @@ export const OnboardingScreen = () => {
     if (stepIndex < onboardingData.length - 1) {
       setStepIndex(prev => prev + 1);
     } else {
-      dispatch(setOnBoardingCompleted(true));
+      navigationServices.reset_0(OnBoardingRoutes['getStartedScreen']);
     }
   };
 
@@ -387,7 +388,11 @@ export const OnboardingScreen = () => {
             />
           ))}
         </View>
-        <Pressable onPress={() => dispatch(setOnBoardingCompleted(true))}>
+        <Pressable
+          onPress={() =>
+            navigationServices.reset_0(OnBoardingRoutes['getStartedScreen'])
+          }
+        >
           <Text style={styles.skipButton}>Skip</Text>
         </Pressable>
       </View>

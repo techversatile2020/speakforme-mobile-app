@@ -4,9 +4,15 @@ import { CustomModal, PrimaryButton, Text } from '../../../../components';
 import { ModalHeader } from '../ModalHeader';
 import { useTheme } from '../../../../theme';
 import { SD } from '../../../../utils';
+import { useDeleteAccount } from '../../../../hooks';
 
 export const DeleteAccountModal = ({ visible, onClose }: any) => {
   const { AppTheme } = useTheme();
+  const { mutate: deleteAccount, isPending } = useDeleteAccount(onClose);
+
+  const handleDelete = async () => {
+    deleteAccount();
+  };
   return (
     <CustomModal
       visible={visible}
@@ -16,7 +22,7 @@ export const DeleteAccountModal = ({ visible, onClose }: any) => {
     >
       <View style={{ flex: 1 }}>
         <Text bold size={20} centered>
-         Are you sure you want to delete your account?
+          Are you sure you want to delete your account?
         </Text>
         <Text
           bold
@@ -35,10 +41,13 @@ export const DeleteAccountModal = ({ visible, onClose }: any) => {
             isSecondary
             customStyles={{ width: '48%' }}
             onPress={onClose}
+            isLoading={isPending}
           />
           <PrimaryButton
             title={'Delete Account'}
             customStyles={{ backgroundColor: AppTheme.red, width: '48%' }}
+            onPress={handleDelete}
+            isLoading={isPending}
           />
         </View>
       </View>

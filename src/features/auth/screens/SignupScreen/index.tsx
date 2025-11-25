@@ -44,8 +44,8 @@ export const SignupScreen = () => {
             phone: '',
             password: '',
             country: {
-              callingCode: '+92',
-              letterCode: 'PK',
+              callingCode: '+1',
+              letterCode: 'US',
             },
           }}
           validationSchema={signupValidationSchema}
@@ -117,7 +117,7 @@ export const SignupScreen = () => {
                 />
                 <PhoneInput
                   defaultValue={values.phone}
-                  defaultCode="PK"
+                  defaultCode="US"
                   onChangeText={n => {
                     setFieldValue('phone', n);
                   }}

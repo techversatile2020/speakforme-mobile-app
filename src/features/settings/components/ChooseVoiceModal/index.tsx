@@ -47,7 +47,7 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
       visible={visible}
       onClose={onClose}
       type="bottomsheet"
-      modalHeight="80%"
+      modalHeight="90%"
     >
       <ModalHeader
         title="Choose a Voice"

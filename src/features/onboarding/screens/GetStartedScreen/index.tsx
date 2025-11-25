@@ -4,13 +4,20 @@ import { MainContainer, PrimaryButton, Text } from '../../../../components';
 import { Images } from '../../../../assets';
 import { navigationServices, SD } from '../../../../utils';
 import { AuthRoutes } from '../../../../constants';
+import { useDispatch } from 'react-redux';
+import { setOnBoardingCompleted } from '../../../../redux';
 
 export const GetStartedScreen = () => {
-  const handleLogin = () =>
+  const dispatch = useDispatch();
+  const handleLogin = () => {
     navigationServices.reset_0(AuthRoutes['LoginScreen']);
+    dispatch(setOnBoardingCompleted(true));
+  };
 
-  const handleRegister = () =>
+  const handleRegister = () => {
     navigationServices.reset_0(AuthRoutes['SignupScreen']);
+    dispatch(setOnBoardingCompleted(true));
+  };
 
   return (
     <MainContainer>

@@ -55,11 +55,9 @@ export const OTPVerificationScreen = ({ route }: any) => {
 
     const payload = {
       email: email,
-      otp: '000000',
+      otp,
       otp_type: flowTypeUrl,
     };
-    console.log('PAYLOAD => ', payload);
-
     verifyAccount(payload);
   };
   return (

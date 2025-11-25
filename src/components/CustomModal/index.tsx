@@ -16,6 +16,7 @@ export const CustomModal = ({
   type = 'center',
   children,
   modalHeight,
+  isOverlay = true,
 }: any) => {
   const slideAnim = useRef(new Animated.Value(height)).current; // for bottom sheet
   const scaleAnim = useRef(new Animated.Value(0.8)).current; // for center modal scale
@@ -79,7 +80,12 @@ export const CustomModal = ({
       <View style={styles.container}>
         {/* BACKDROP */}
         <TouchableWithoutFeedback onPress={onClose}>
-          <Animated.View style={[styles.backdrop, { opacity: opacityAnim }]} />
+          <Animated.View
+            style={[
+              styles.backdrop,
+              { opacity: opacityAnim, backgroundColor: isOverlay && '#000' },
+            ]}
+          />
         </TouchableWithoutFeedback>
 
         {/* CONTENT */}
@@ -111,7 +117,6 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#000',
   },
   bottomSheet: {
     backgroundColor: '#fff',

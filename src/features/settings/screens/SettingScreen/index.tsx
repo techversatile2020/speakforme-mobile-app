@@ -10,6 +10,7 @@ import {
 import { Icons } from '../../../../assets';
 import { navigationServices } from '../../../../utils';
 import { SettingRoutes } from '../../../../constants';
+import { View } from 'react-native';
 
 export const SettingScreen = () => {
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
@@ -51,32 +52,48 @@ export const SettingScreen = () => {
   ];
 
   return (
-    <MainContainer>
-      <Header />
+    <>
+      <MainContainer>
+        <Header />
 
-      <Text bold size={26} topSpacing={20} bottomSpacing={20}>
-        Settings
-      </Text>
+        <Text bold size={26} topSpacing={20} bottomSpacing={20}>
+          Settings
+        </Text>
 
-      {optionsData.map(item => {
-        return <SettingCard key={item?.id?.toString()} data={item} />;
-      })}
-      <EditProfileModal
-        visible={showEditProfileModal}
-        onClose={() => setShowEditProfileModal(false)}
-      />
-      <ChangePasswordModal
-        visible={showChangePasswordModal}
-        onClose={() => setShowChangePasswordModal(false)}
-      />
-      <DeleteAccountModal
-        visible={showDeleteAccountModal}
-        onClose={() => setShowDeleteAccountModal(false)}
-      />
-      <LogoutModal
-        visible={showLogoutModal}
-        onClose={() => setShowLogoutModal(false)}
-      />
-    </MainContainer>
+        {optionsData.map(item => {
+          return <SettingCard key={item?.id?.toString()} data={item} />;
+        })}
+        <EditProfileModal
+          visible={showEditProfileModal}
+          onClose={() => setShowEditProfileModal(false)}
+        />
+        <ChangePasswordModal
+          visible={showChangePasswordModal}
+          onClose={() => setShowChangePasswordModal(false)}
+        />
+        <DeleteAccountModal
+          visible={showDeleteAccountModal}
+          onClose={() => setShowDeleteAccountModal(false)}
+        />
+        <LogoutModal
+          visible={showLogoutModal}
+          onClose={() => setShowLogoutModal(false)}
+        />
+      </MainContainer>
+
+      {(showChangePasswordModal || showEditProfileModal) && (
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            zIndex: 999,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+          }}
+        />
+      )}
+    </>
   );
 };
