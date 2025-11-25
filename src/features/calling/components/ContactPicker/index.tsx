@@ -98,6 +98,9 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
+        <Text bold size={26} bottomSpacing={10}>
+          Contacts
+        </Text>
         {loading ? (
           <Text>Loading Contacts...</Text>
         ) : contacts.length === 0 ? (

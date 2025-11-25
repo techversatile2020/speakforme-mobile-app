@@ -135,6 +135,11 @@ export const SignupScreen = () => {
                     };
                     setFieldValue('country', country);
                   }}
+                  // disableArrowIcon
+                  textInputProps={{
+                    maxLength: 10,
+                    placeholder: '9295558247',
+                  }}
                 />
                 <CustomInput
                   inputRef={passwordRef}

@@ -62,6 +62,7 @@ export type CustomInputProps = TextInputProps & {
   leftIconSource?: ImageSourcePropType;
   leftIconPress?: () => void;
   leftIconSourceStyles?: ImageStyle;
+  leftPrefix?: string;
 };
 
 export const CustomInput: FC<CustomInputProps> = ({
@@ -89,6 +90,7 @@ export const CustomInput: FC<CustomInputProps> = ({
   leftIconSource,
   leftIconSourceStyles,
   leftIconPress,
+  leftPrefix,
   ...rest
 }) => {
   const { AppTheme } = useTheme();
@@ -123,6 +125,18 @@ export const CustomInput: FC<CustomInputProps> = ({
             resizeMode="contain"
           />
         )}
+        {leftPrefix && (
+          <Text
+            style={{
+              fontSize: SD.customFontSize(14),
+              fontFamily: Fonts.regular,
+              color: AppTheme.textPrimary,
+              marginRight: SD.wp(4),
+            }}
+          >
+            {leftPrefix}
+          </Text>
+        )}
         <TextInput
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
@@ -152,7 +166,7 @@ export const CustomInput: FC<CustomInputProps> = ({
               styles.eyeStyle(AppTheme),
               {
                 height: '50%',
-                // borderWidth:1
+                right: leftPrefix ? SD.wp(15) : 0,
               },
               iconStyle,
             ]}
