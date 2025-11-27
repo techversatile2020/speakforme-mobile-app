@@ -1,26 +1,26 @@
-import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import {
   CustomInput,
-  CustomModal,
+  MainContainer,
   PrimaryButton,
   Text,
 } from '../../../../components';
-import { ModalHeader } from '../ModalHeader';
 import { useTheme } from '../../../../theme';
-import { SD } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
+import { ModalHeader } from '../ModalHeader';
 
 export const EditProfileModal = ({ visible, onClose }: any) => {
   const { AppTheme } = useTheme();
   const [fullName, setFullName] = useState('Joel Osteen');
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="93%"
-    >
-      <ModalHeader title="Edit Profile" onIconPress={onClose} />
+    <MainContainer>
+      <ModalHeader
+        title="Edit Profile"
+        onIconPress={() => {
+          navigationServices.goBack();
+        }}
+      />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <Text size={14} color={AppTheme.textSecondary} regular leftSpacing={8}>
           Full Name
@@ -28,7 +28,7 @@ export const EditProfileModal = ({ visible, onClose }: any) => {
         <CustomInput value={fullName} onChangeText={setFullName} />
       </View>
       <PrimaryButton title={'Save'} customStyles={{ bottom: SD.hp(30) }} />
-    </CustomModal>
+    </MainContainer>
   );
 };
 

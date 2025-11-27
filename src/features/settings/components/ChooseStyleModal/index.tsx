@@ -1,14 +1,9 @@
-import { FlatList, View } from 'react-native';
 import React, { useState } from 'react';
-import {
-  AudioPlayer,
-  CustomModal,
-  PrimaryButton,
-} from '../../../../components';
+import { FlatList, View } from 'react-native';
+import { MainContainer, PrimaryButton } from '../../../../components';
+import { navigationServices, SD } from '../../../../utils';
 import { ModalHeader } from '../ModalHeader';
-import { SD } from '../../../../utils';
 import { VoicesCard } from '../VoicesCard';
-import { Audios } from '../../../../assets';
 
 export const ChooseStyleModal = ({ visible, onClose }: any) => {
   const [selectedVoice, setSelectedVoice] = useState(null);
@@ -35,17 +30,13 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
   ];
 
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="93%"
-    >
+    <MainContainer>
       <ModalHeader
         title="Choose a Style"
         subTitle="Pick a speaking style that feels right."
-        onIconPress={onClose}
-        containerStyles={{ paddingTop: SD.hp(40) }}
+        onIconPress={() => {
+          navigationServices.goBack();
+        }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <FlatList
@@ -72,6 +63,6 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
           }}
         />
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };

@@ -179,7 +179,7 @@ export const SignupScreen = () => {
                   </Text>
                   <CardContainer
                     onPress={() =>
-                      navigationServices.navigate(AuthRoutes['LoginScreen'])
+                      navigationServices.reset_0(AuthRoutes['LoginScreen'])
                     }
                   >
                     <Text size={11} regular color={AppTheme.primary}>

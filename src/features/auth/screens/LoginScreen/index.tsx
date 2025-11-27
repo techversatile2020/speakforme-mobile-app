@@ -100,6 +100,10 @@ export const LoginScreen = () => {
                   }
                 />
                 <CardContainer
+                  customStyles={{
+                    width: '30%',
+                    alignSelf: 'flex-end',
+                  }}
                   onPress={() =>
                     navigationServices.navigate(
                       AuthRoutes['ForgotPasswordScreen'],

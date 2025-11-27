@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Modal,
-  TouchableOpacity,
   FlatList,
-  StyleSheet,
   Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import { PERMISSIONS } from 'react-native-permissions';
-import { SD, usePermission } from '../../../../utils';
-import { PrimaryButton, Text } from '../../../../components';
+import { MainContainer, Text } from '../../../../components';
+import { navigationServices, usePermission } from '../../../../utils';
+import { ModalHeader } from '../../../settings';
 
 interface ContactPickerProps {
   visible: boolean;
@@ -24,13 +24,10 @@ interface ContactPickerProps {
   }) => void;
 }
 
-export const ContactPicker: React.FC<ContactPickerProps> = ({
-  visible,
-  onClose,
-  onSelect,
-}) => {
+export const ContactPicker: React.FC<ContactPickerProps> = ({ route }: any) => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const { onSelect } = route?.params || {};
 
   const contactPermission =
     Platform.OS === 'android'
@@ -41,10 +38,8 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
     usePermission(contactPermission);
 
   useEffect(() => {
-    if (visible) {
-      loadContacts();
-    }
-  }, [visible]);
+    loadContacts();
+  }, []);
 
   const loadContacts = async () => {
     setLoading(true);
@@ -83,7 +78,7 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
             style={styles.phoneItem}
             onPress={() => {
               onSelect({ name, phoneNumber: phone.number });
-              onClose();
+              navigationServices.goBack();
             }}
           >
             <Text>
@@ -96,30 +91,29 @@ export const ContactPicker: React.FC<ContactPickerProps> = ({
   };
 
   return (
-    <Modal visible={visible} animationType="slide">
-      <View style={styles.container}>
-        <Text bold size={26} bottomSpacing={10}>
-          Contacts
-        </Text>
-        {loading ? (
-          <Text>Loading Contacts...</Text>
-        ) : contacts.length === 0 ? (
-          <Text>No contacts found or permission denied</Text>
-        ) : (
-          <FlatList
-            data={contacts}
-            keyExtractor={item => item.recordID}
-            renderItem={renderItem}
-          />
-        )}
-        <PrimaryButton title={'Close'} onPress={onClose} />
-      </View>
-    </Modal>
+    <MainContainer>
+      <ModalHeader
+        title="Contacts"
+        onIconPress={() => {
+          navigationServices.goBack();
+        }}
+      />
+      {loading ? (
+        <Text>Loading Contacts...</Text>
+      ) : contacts.length === 0 ? (
+        <Text>No contacts found or permission denied</Text>
+      ) : (
+        <FlatList
+          data={contacts}
+          keyExtractor={item => item.recordID}
+          renderItem={renderItem}
+        />
+      )}
+    </MainContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, paddingTop: SD.hp(40) },
   contactItem: {
     paddingVertical: 10,
     borderBottomWidth: 1,

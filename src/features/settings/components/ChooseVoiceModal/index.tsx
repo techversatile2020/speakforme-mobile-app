@@ -1,13 +1,13 @@
-import { FlatList, View } from 'react-native';
 import React, { useState } from 'react';
+import { FlatList, View } from 'react-native';
+import { Icons } from '../../../../assets';
 import {
   CustomInput,
-  CustomModal,
+  MainContainer,
   PrimaryButton,
 } from '../../../../components';
+import { navigationServices, SD } from '../../../../utils';
 import { ModalHeader } from '../ModalHeader';
-import { SD } from '../../../../utils';
-import { Icons } from '../../../../assets';
 import { VoicesCard } from '../VoicesCard';
 
 export const ChooseVoiceModal = ({ visible, onClose }: any) => {
@@ -43,17 +43,13 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
   ];
 
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="93%"
-    >
+    <MainContainer>
       <ModalHeader
         title="Choose a Voice"
         subTitle="Pick the voice that best matches your style."
-        onIconPress={onClose}
-        containerStyles={{ paddingTop: SD.hp(40) }}
+        onIconPress={() => {
+          navigationServices.goBack();
+        }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <CustomInput
@@ -87,6 +83,6 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
           }}
         />
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };

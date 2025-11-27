@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { Header, MainContainer, Text } from '../../../../components';
-import {
-  ChangePasswordModal,
-  DeleteAccountModal,
-  EditProfileModal,
-  LogoutModal,
-  SettingCard,
-} from '../../components';
 import { Icons } from '../../../../assets';
+import { Header, MainContainer, Text } from '../../../../components';
+import { SettingRoutes, SettingsModalRoutes } from '../../../../constants';
 import { navigationServices } from '../../../../utils';
-import { SettingRoutes } from '../../../../constants';
+import { DeleteAccountModal, LogoutModal, SettingCard } from '../../components';
 
 export const SettingScreen = () => {
-  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
-  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const optionsData = [
@@ -21,13 +13,17 @@ export const SettingScreen = () => {
       id: 1,
       title: 'Edit Profile',
       icon: Icons.profile,
-      onPress: () => setShowEditProfileModal(true),
+      // onPress: () => setShowEditProfileModal(true),
+      onPress: () =>
+        navigationServices.navigate(SettingsModalRoutes['EditProfile']),
     },
     {
       id: 2,
       title: 'Change Password',
       icon: Icons.password,
-      onPress: () => setShowChangePasswordModal(true),
+      // onPress: () => setShowChangePasswordModal(true),
+      onPress: () =>
+        navigationServices.navigate(SettingsModalRoutes['ChangePassword']),
     },
     {
       id: 3,
@@ -35,6 +31,13 @@ export const SettingScreen = () => {
       icon: Icons.voice,
       onPress: () =>
         navigationServices.navigate(SettingRoutes['VoiceSettingScreen']),
+    },
+    {
+      id: 3,
+      title: 'Subscriptions',
+      icon: Icons.voice,
+      onPress: () =>
+        navigationServices.navigate(SettingsModalRoutes['SubscriptionModal']),
     },
     {
       id: 4,
@@ -61,14 +64,6 @@ export const SettingScreen = () => {
       {optionsData.map(item => {
         return <SettingCard key={item?.id?.toString()} data={item} />;
       })}
-      <EditProfileModal
-        visible={showEditProfileModal}
-        onClose={() => setShowEditProfileModal(false)}
-      />
-      <ChangePasswordModal
-        visible={showChangePasswordModal}
-        onClose={() => setShowChangePasswordModal(false)}
-      />
       <DeleteAccountModal
         visible={showDeleteAccountModal}
         onClose={() => setShowDeleteAccountModal(false)}

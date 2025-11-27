@@ -1,15 +1,12 @@
-import { FlatList, View } from 'react-native';
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import {
-  CustomDropdown,
   CustomInput,
-  CustomModal,
+  MainContainer,
   PrimaryButton,
 } from '../../../../components';
+import { navigationServices, SD } from '../../../../utils';
 import { ModalHeader } from '../ModalHeader';
-import { SD } from '../../../../utils';
-import { Icons } from '../../../../assets';
-import { VoicesCard } from '../VoicesCard';
 
 export const ChooseLanguageModal = ({ visible, onClose }: any) => {
   const languageOptions = [
@@ -17,17 +14,13 @@ export const ChooseLanguageModal = ({ visible, onClose }: any) => {
   ];
   const [language, setLanguage] = useState(languageOptions[0]);
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="93%"
-    >
+    <MainContainer>
       <ModalHeader
         title="Choose a Language"
         subTitle="Pick your language to start communicating."
-        onIconPress={onClose}
-        containerStyles={{ paddingTop: SD.hp(40) }}
+        onIconPress={() => {
+          navigationServices.goBack();
+        }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         {/* <CustomDropdown
@@ -48,6 +41,6 @@ export const ChooseLanguageModal = ({ visible, onClose }: any) => {
           }}
         />
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };

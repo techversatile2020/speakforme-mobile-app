@@ -3,6 +3,7 @@ import {
   AuthStack,
   CallingStack,
   OnboardingStacks,
+  SettingModalStacks,
   SettingsStack,
 } from './stacks';
 import { useSelector } from 'react-redux';
@@ -15,7 +16,12 @@ export const AppStack = () => {
   const { token } = useSelector((state: any) => state.auth);
 
   const buildScreens = () => {
-    return [...OnboardingStacks, ...AuthStack, ...CallingStack, ...SettingsStack];
+    return [
+      ...OnboardingStacks,
+      ...AuthStack,
+      ...CallingStack,
+      ...SettingsStack,
+    ];
     if (!onBoardingCompleted && !token) {
       return [...OnboardingStacks, ...AuthStack];
     }
@@ -49,6 +55,11 @@ export const AppStack = () => {
           options={options || {}}
         />
       ))}
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        {SettingModalStacks.map(({ name, component }) => {
+          return <Stack.Screen name={name} component={component} />;
+        })}
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

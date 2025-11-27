@@ -1,4 +1,9 @@
+import { Formik } from 'formik';
 import React, { useState } from 'react';
+import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { useSelector } from 'react-redux';
+import { Icons } from '../../../../assets';
 import {
   CustomInput,
   Header,
@@ -6,14 +11,12 @@ import {
   PrimaryButton,
   Text,
 } from '../../../../components';
-import { Icons } from '../../../../assets';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import {
+  CallingRoutes,
+  SettingRoutes,
+  SettingsModalRoutes,
+} from '../../../../constants';
 import { navigationServices, SD } from '../../../../utils';
-import { Formik } from 'formik';
-import { View } from 'react-native';
-import { CallingRoutes, SettingRoutes } from '../../../../constants';
-import { ContactPicker } from '../../components';
-import { useSelector } from 'react-redux';
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -97,7 +100,29 @@ export const HomeScreen = () => {
                     height: SD.wp(24),
                   }}
                   isPressableIcon
-                  onBtnPress={() => setModalVisible(true)}
+                  // onBtnPress={() => setModalVisible(true)}
+                  onBtnPress={() => {
+                    navigationServices.navigate(
+                      SettingsModalRoutes.ContactModal,
+                      {
+                        onSelect: (contact: any) => {
+                          // setFieldValue('recipientsNumber', contact.phoneNumber)
+                          let num = contact.phoneNumber;
+
+                          // Remove all spaces, hyphens, etc.
+                          // num = num.replace(/\s|-/g, '');
+
+                          // If number starts with +something, remove it
+                          if (num.startsWith('+')) {
+                            // remove +countryCode (keep last 10 digits typically)
+                            num = num.replace(/^\+\d+/, '');
+                          }
+
+                          setFieldValue('recipientsNumber', num);
+                        },
+                      },
+                    );
+                  }}
                   maxLength={20}
                 />
                 <Text leftSpacing={5} regular size={14} topSpacing={20}>
@@ -123,25 +148,11 @@ export const HomeScreen = () => {
                 />
               </View>
               <PrimaryButton title={'Start Call'} onPress={handleSubmit} />
-              <ContactPicker
+              {/* <ContactPicker
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
-                onSelect={contact => {
-                  // setFieldValue('recipientsNumber', contact.phoneNumber)
-                  let num = contact.phoneNumber;
-
-                  // Remove all spaces, hyphens, etc.
-                  // num = num.replace(/\s|-/g, '');
-
-                  // If number starts with +something, remove it
-                  if (num.startsWith('+')) {
-                    // remove +countryCode (keep last 10 digits typically)
-                    num = num.replace(/^\+\d+/, '');
-                  }
-
-                  setFieldValue('recipientsNumber', num);
-                }}
-              />
+                onSelect={}
+              /> */}
             </View>
           )}
         </Formik>
