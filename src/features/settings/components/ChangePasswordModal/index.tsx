@@ -4,9 +4,9 @@ import {
   CustomInput,
   PrimaryButton,
   Text,
-  CustomModal,
+  MainContainer,
 } from '../../../../components';
-import { SD, toast } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import { StyleSheet, TextInput, View } from 'react-native';
@@ -14,7 +14,7 @@ import { ModalHeader } from '../ModalHeader';
 import { useChangePassword } from '../../../../hooks';
 import { changePasswordValidationSchema } from './validation.schema';
 
-export const ChangePasswordModal = ({ visible, onClose }: any) => {
+export const ChangePasswordModal = () => {
   const { AppTheme } = useTheme();
 
   const [isPasswordVisible1, setIsPasswordVisible1] = useState(false);
@@ -22,18 +22,16 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
   const [isPasswordVisible3, setisPasswordVisible3] = useState(false);
   const confirmPasswordRef = useRef<TextInput>(null);
 
-  const { mutate: changePasswordMutation, isPending } =
-    useChangePassword(onClose);
+  const { mutate: changePasswordMutation, isPending } = useChangePassword(() =>
+    navigationServices.goBack(),
+  );
 
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="87%"
-      isOverlay={false}
-    >
-      <ModalHeader title="Change Password" onIconPress={onClose} />
+    <MainContainer>
+      <ModalHeader
+        title="Change Password"
+        onIconPress={() => navigationServices.goBack()}
+      />
       <View style={{ flex: 1, marginTop: SD.hp(20) }}>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
@@ -149,7 +147,7 @@ export const ChangePasswordModal = ({ visible, onClose }: any) => {
           </Formik>
         </KeyboardAwareScrollView>
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };
 

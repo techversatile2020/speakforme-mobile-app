@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import {
   AudioPlayer,
   CustomModal,
+  MainContainer,
   PrimaryButton,
 } from '../../../../components';
 import { ModalHeader } from '../ModalHeader';
-import { SD } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { VoicesCard } from '../VoicesCard';
 import { Audios } from '../../../../assets';
 
-export const ChooseStyleModal = ({ visible, onClose }: any) => {
+export const ChooseStyleModal = () => {
   const [selectedVoice, setSelectedVoice] = useState(null);
 
   const voicesCardData = [
@@ -35,16 +36,11 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
   ];
 
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="90%"
-    >
+    <MainContainer>
       <ModalHeader
         title="Choose a Style"
         subTitle="Pick a speaking style that feels right."
-        onIconPress={onClose}
+        onIconPress={() => navigationServices.goBack()}
         containerStyles={{ paddingTop: SD.hp(40) }}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
@@ -72,6 +68,6 @@ export const ChooseStyleModal = ({ visible, onClose }: any) => {
           }}
         />
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };

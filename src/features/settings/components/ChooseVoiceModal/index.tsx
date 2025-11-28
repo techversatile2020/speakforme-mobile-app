@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import {
   CustomInput,
   CustomModal,
+  MainContainer,
   PrimaryButton,
 } from '../../../../components';
 import { ModalHeader } from '../ModalHeader';
-import { SD } from '../../../../utils';
+import { navigationServices, SD } from '../../../../utils';
 import { Icons } from '../../../../assets';
 import { VoicesCard } from '../VoicesCard';
 
-export const ChooseVoiceModal = ({ visible, onClose }: any) => {
+export const ChooseVoiceModal = () => {
   const [search, setSearch] = useState('');
   const [selectedVoice, setSelectedVoice] = useState(null);
 
@@ -43,16 +44,11 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
   ];
 
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="90%"
-    >
+    <MainContainer>
       <ModalHeader
         title="Choose a Voice"
         subTitle="Pick the voice that best matches your style."
-        onIconPress={onClose}
+        onIconPress={() => navigationServices.goBack()}
       />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <CustomInput
@@ -86,6 +82,6 @@ export const ChooseVoiceModal = ({ visible, onClose }: any) => {
           }}
         />
       </View>
-    </CustomModal>
+    </MainContainer>
   );
 };

@@ -1,4 +1,9 @@
+import { Formik } from 'formik';
 import React, { useState } from 'react';
+import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { useSelector } from 'react-redux';
+import { Icons } from '../../../../assets';
 import {
   CustomInput,
   Header,
@@ -6,19 +11,19 @@ import {
   PrimaryButton,
   Text,
 } from '../../../../components';
-import { Icons } from '../../../../assets';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
-import { getGreeting, navigationServices, SD } from '../../../../utils';
-import { Formik } from 'formik';
-import { View } from 'react-native';
 import { CallingRoutes, SettingRoutes } from '../../../../constants';
+import { useMakeCall } from '../../../../hooks';
+import { getGreeting, navigationServices, SD } from '../../../../utils';
 import { ContactPicker } from '../../components';
-import { useSelector } from 'react-redux';
 
 export const HomeScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const greeting = getGreeting();
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const { mutate: makeCall, isPending } = useMakeCall();
+
   const handleGoToSettings = () =>
     navigationServices.navigate(SettingRoutes['SettingScreen']);
 
@@ -38,6 +43,13 @@ export const HomeScreen = () => {
       6,
     )}`;
   };
+
+  function normalizePhoneNumber(num: any) {
+    // Remove all non-digits
+    const digits = num.replace(/\D/g, '');
+    // Prepend country code +1 (assuming US numbers)
+    return `+1${digits}`;
+  }
   return (
     <MainContainer>
       <Header
@@ -54,20 +66,23 @@ export const HomeScreen = () => {
         bottomOffset={SD.hp(50)}
       >
         <Formik
-          initialValues={{ recipientsNumber: '', yourNumber: '' }}
+          initialValues={{
+            // recipientsNumber: '4697577367',
+            // yourNumber: '3463271231',
+            recipientsNumber: '03090126236',
+            yourNumber: '03322765604',
+          }}
           onSubmit={values => {
-            navigationServices.navigate(CallingRoutes['CallScreen']);
+            let makeCallPayload = {
+              // to_number: normalizePhoneNumber(values.recipientsNumber),
+              // self_number: normalizePhoneNumber(values.yourNumber),
+              to_number: '03090126236',
+              self_number: '03322765604',
+            };
+            makeCall(makeCallPayload);
           }}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-            setFieldValue,
-          }) => (
+          {({ handleSubmit, values, errors, touched, setFieldValue }) => (
             <View style={{ flex: 1 }}>
               <View style={{ marginTop: SD.hp(60), flex: 1 }}>
                 <Text leftSpacing={5} regular size={14}>
@@ -120,7 +135,11 @@ export const HomeScreen = () => {
                   keyboardType="phone-pad"
                 />
               </View>
-              <PrimaryButton title={'Start Call'} onPress={handleSubmit} />
+              <PrimaryButton
+                title={'Start Call'}
+                onPress={handleSubmit}
+                isLoading={isPending}
+              />
               <ContactPicker
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}

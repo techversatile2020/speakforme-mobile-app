@@ -14,12 +14,31 @@ import { BasicCommunicationCard } from '../../components';
 import { basicCommunicationData, duringCallData } from './data';
 import { Icons } from '../../../../assets';
 import { SD } from '../../../../utils';
+import { useEndCall, useSendMessage } from '../../../../hooks';
 
-export const CallScreen = () => {
+export const CallScreen = ({ route }: any) => {
   const { AppTheme } = useTheme();
   const styles = createStyles(AppTheme);
   const [text, setText] = useState('');
+  const { data } = route?.params || {};
 
+  const { mutate: sendCallMessage, isPending } = useSendMessage();
+  const { mutate: endCall } = useEndCall();
+  const handleSendCallMessage = () => {
+    if (!text) return;
+    sendCallMessage({
+      tokenId: data?.tokenid,
+      callId: data?.callid,
+      message: text,
+    });
+  };
+
+  const handleEndCall = () => {
+    endCall({
+      tokenId: data?.tokenid,
+      callId: data?.callid,
+    });
+  };
   return (
     <MainContainer>
       <Header />
@@ -74,8 +93,14 @@ export const CallScreen = () => {
           customStyles={styles.sendButtonStyles}
           iconSource={Icons.send}
           fontSize={17}
+          onPress={handleSendCallMessage}
+          isLoading={isPending}
         />
-        <TouchableOpacity style={styles.phoneButton} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.phoneButton}
+          activeOpacity={0.7}
+          onPress={handleEndCall}
+        >
           <Image source={Icons.phone} size={27} />
         </TouchableOpacity>
       </View>

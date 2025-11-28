@@ -1,38 +1,36 @@
-import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import {
   CustomInput,
-  CustomModal,
+  MainContainer,
   PrimaryButton,
   Text,
 } from '../../../../components';
-import { ModalHeader } from '../ModalHeader';
-import { useTheme } from '../../../../theme';
-import { SD } from '../../../../utils';
-import { useSelector } from 'react-redux';
 import { useUpdateProfile } from '../../../../hooks';
+import { useTheme } from '../../../../theme';
+import { navigationServices, SD } from '../../../../utils';
+import { ModalHeader } from '../ModalHeader';
 
-export const EditProfileModal = ({ visible, onClose }: any) => {
+export const EditProfileModal = () => {
   const { AppTheme } = useTheme();
   const { user } = useSelector((state: any) => state.auth);
 
   const [fullName, setFullName] = useState(user?.username || '');
-  const { mutate: updateProfileMutation, isPending } =
-    useUpdateProfile(onClose);
+  const { mutate: updateProfileMutation, isPending } = useUpdateProfile(() =>
+    navigationServices.goBack(),
+  );
 
   const handleSave = () => {
-    onClose();
+    navigationServices.goBack();
     updateProfileMutation({ username: fullName });
   };
   return (
-    <CustomModal
-      visible={visible}
-      onClose={onClose}
-      type="bottomsheet"
-      modalHeight="87%"
-      isOverlay={false}
-    >
-      <ModalHeader title="Edit Profile" onIconPress={onClose} />
+    <MainContainer>
+      <ModalHeader
+        title="Edit Profile"
+        onIconPress={() => navigationServices.goBack()}
+      />
       <View style={{ flex: 1, marginTop: SD.hp(30) }}>
         <Text size={14} color={AppTheme.textSecondary} regular leftSpacing={8}>
           Full Name
@@ -46,7 +44,7 @@ export const EditProfileModal = ({ visible, onClose }: any) => {
         isLoading={isPending}
         disabled={user?.username?.trim() === fullName?.trim()}
       />
-    </CustomModal>
+    </MainContainer>
   );
 };
 

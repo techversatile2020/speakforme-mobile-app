@@ -19,6 +19,7 @@ type MainContainerProps = {
   barStyle?: 'default' | 'light-content' | 'dark-content';
   barBg?: string;
   isFlatList?: boolean;
+  coverWholeScreen?: boolean;
 };
 
 export const MainContainer: React.FC<MainContainerProps> = ({
@@ -29,11 +30,31 @@ export const MainContainer: React.FC<MainContainerProps> = ({
   barStyle = 'dark-content',
   barBg,
   isFlatList,
+  coverWholeScreen = false,
 }) => {
   const { AppTheme } = useTheme();
 
+  const Wrapper = coverWholeScreen ? View : SafeAreaView;
+
   return (
-    <SafeAreaView
+    // <SafeAreaView
+    //   style={[
+    //     { flex: 1, backgroundColor: AppTheme.background },
+    //     mainContainerStyle,
+    //   ]}
+    // >
+    //   <StatusBar
+    //     hidden={hidden}
+    //     barStyle={barStyle}
+    //     backgroundColor={barBg || AppTheme.background}
+    //   />
+    //   {!isFlatList ? (
+    //     <View style={[styles.container, customeStyle]}>{children}</View>
+    //   ) : (
+    //     <View style={[styles.container, customeStyle]}>{children}</View>
+    //   )}
+    // </SafeAreaView>
+    <Wrapper
       style={[
         { flex: 1, backgroundColor: AppTheme.background },
         mainContainerStyle,
@@ -41,15 +62,23 @@ export const MainContainer: React.FC<MainContainerProps> = ({
     >
       <StatusBar
         hidden={hidden}
+        translucent={coverWholeScreen} // Allow content behind status bar
         barStyle={barStyle}
-        backgroundColor={barBg || AppTheme.background}
+        backgroundColor={
+          barBg || (coverWholeScreen ? 'transparent' : AppTheme.background)
+        }
       />
-      {!isFlatList ? (
-        <View style={[styles.container, customeStyle]}>{children}</View>
-      ) : (
-        <View style={[styles.container, customeStyle]}>{children}</View>
-      )}
-    </SafeAreaView>
+
+      <View
+        style={[
+          styles.container,
+          coverWholeScreen && { paddingTop: 0, paddingBottom: 0 }, // remove safe padding
+          customeStyle,
+        ]}
+      >
+        {children}
+      </View>
+    </Wrapper>
   );
 };
 

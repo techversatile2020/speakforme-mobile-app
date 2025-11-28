@@ -14,9 +14,18 @@ export enum AuthRoutes {
 export enum CallingRoutes {
   HomeScreen = 'HomeScreen',
   CallScreen = 'CallScreen',
+  CallStatusScreen = 'CallStatusScreen',
 }
 
 export enum SettingRoutes {
   SettingScreen = 'SettingScreen',
-  VoiceSettingScreen="VoiceSettingScreen"
+  VoiceSettingScreen = 'VoiceSettingScreen',
+}
+
+export enum SettingsModalRoutes {
+  EditProfile = 'EditProfile',
+  ChangePassword = 'ChangePassword',
+  ChooseVoice = 'ChooseVoice',
+  ChooseStyle = 'ChooseStyle',
+  ChooseLanguage = 'ChooseLanguage',
 }

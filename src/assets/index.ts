@@ -19,6 +19,8 @@ export const Images = {
   getStarted: require('./images/getStarted.png'),
 
   logo: require('./images/logo.png'),
+  profilePlaceholder: require('./images/profile-placeholder.png'),
+  callWallpaper: require('./images/call-wallpaper.png'),
 };
 
 export const Icons = {

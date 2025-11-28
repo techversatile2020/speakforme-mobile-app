@@ -1,5 +1,5 @@
 import { CallingRoutes } from '../../constants';
-import { CallScreen, HomeScreen } from '../../features';
+import { CallScreen, CallStatusScreen, HomeScreen } from '../../features';
 
 export const CallingStack: any[] = [
   {
@@ -9,5 +9,9 @@ export const CallingStack: any[] = [
   {
     name: CallingRoutes.CallScreen,
     component: CallScreen,
+  },
+  {
+    name: CallingRoutes.CallStatusScreen,
+    component: CallStatusScreen,
   },
 ];

@@ -3,10 +3,12 @@ import {
   AuthStack,
   CallingStack,
   OnboardingStacks,
+  SettingModalStacks,
   SettingsStack,
 } from './stacks';
 import { useSelector } from 'react-redux';
 import { OnBoardingRoutes } from '../constants';
+import { ChangePasswordModal } from '../features/settings/components';
 
 const Stack: any = createNativeStackNavigator<any>();
 
@@ -48,6 +50,11 @@ export const AppStack = () => {
           options={options || {}}
         />
       ))}
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        {SettingModalStacks.map(({ name, component }) => {
+          return <Stack.Screen name={name} component={component} />;
+        })}
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
