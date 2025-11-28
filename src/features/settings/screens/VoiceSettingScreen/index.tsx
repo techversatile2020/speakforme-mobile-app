@@ -7,15 +7,15 @@ import { SettingCard } from '../../components';
 
 export const VoiceSettingScreen = () => {
   const optionsData = [
-    {
-      id: 1,
-      title: 'Choose a Voice',
-      subTitle: 'Emma - Natural Female',
-      icon: Icons.mic,
-      // onPress: () => setShowChooseVoiceModal(true),
-      onPress: () =>
-        navigationServices.navigate(SettingsModalRoutes['ChooseVoice']),
-    },
+    // {
+    //   id: 1,
+    //   title: 'Choose a Voice',
+    //   subTitle: 'Emma - Natural Female',
+    //   icon: Icons.mic,
+    //   // onPress: () => setShowChooseVoiceModal(true),
+    //   onPress: () =>
+    //     navigationServices.navigate(SettingsModalRoutes['ChooseVoice']),
+    // },
     {
       id: 2,
       title: 'Choose a Style',

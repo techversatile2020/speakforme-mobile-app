@@ -12,3 +12,7 @@ export const sendMessage = (body: any) => {
 export const endCall = (body: any) => {
   return httpService().post(Urls.endCall, body);
 };
+
+export const getVonageVoices = () => {
+  return httpService().get(Urls.vonageVoices);
+};

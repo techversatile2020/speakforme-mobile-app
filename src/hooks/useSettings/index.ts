@@ -1,8 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   changeUserPassword,
   deleteUserAccount,
   getMe,
+  getVonageVoices,
   updateProfile,
 } from '../../api';
 import { toast } from '../../utils';
@@ -64,5 +65,14 @@ export const useDeleteAccount = (callback?: (peram?: any) => void) => {
         'Failed to update profile.';
       toast.fail(msg);
     },
+  });
+};
+
+export const useGetUserData = (enabled = true) => {
+  return useQuery({
+    queryKey: ['userData'],
+    queryFn: getVonageVoices,
+    enabled,
+    select: (res: any) => res.data, // sirf data return kare
   });
 };

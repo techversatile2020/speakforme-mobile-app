@@ -10,12 +10,7 @@ import { AudioPlayer, Text } from '../../../../components';
 import { SD } from '../../../../utils';
 
 type VoicesCardPropsType = {
-  data: {
-    title: string;
-    subTitle: string;
-    id: string | number;
-    audio?: string;
-  };
+  data: any;
   isSelected?: boolean;
   setSelectedVoice?: (d: any) => void;
   voice?: boolean;
@@ -28,7 +23,7 @@ export const VoicesCard = ({
   voice,
 }: VoicesCardPropsType) => {
   const { AppTheme } = useTheme();
-  const { title, subTitle, id, audio } = data || {};
+  const { code, name, language, style, url } = data || {};
   const [isLoading, setIsLoading] = useState(false);
   const [shwoAudioPlayer, setShowAudioPlayer] = useState(false);
 
@@ -43,15 +38,15 @@ export const VoicesCard = ({
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => setSelectedVoice?.(id)}
+      onPress={() => setSelectedVoice?.(data)}
     >
       <View style={[styles.innerContainer, !voice && { alignItems: 'center' }]}>
         <View style={styles.leftSideView}>
           <Text bold size={18}>
-            {title}
+            {name}
           </Text>
           <Text regular size={16}>
-            {subTitle}
+            {language}
           </Text>
         </View>
         <View
@@ -70,8 +65,7 @@ export const VoicesCard = ({
         voice &&
         shwoAudioPlayer && (
           <AudioPlayer
-            url={audio}
-            id={id}
+            url={url}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
