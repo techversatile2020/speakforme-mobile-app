@@ -33,20 +33,20 @@ export const SettingScreen = () => {
         navigationServices.navigate(SettingRoutes['VoiceSettingScreen']),
     },
     {
-      id: 3,
+      id: 4,
       title: 'Subscriptions',
       icon: Icons.voice,
       onPress: () =>
         navigationServices.navigate(SettingsModalRoutes['SubscriptionModal']),
     },
     {
-      id: 4,
+      id: 5,
       title: 'Delete Account',
       icon: Icons.delete,
       onPress: () => setShowDeleteAccountModal(true),
     },
     {
-      id: 5,
+      id: 6,
       title: 'Logout',
       icon: Icons.logout,
       onPress: () => setShowLogoutModal(true),
